@@ -1,6 +1,6 @@
 # Uncle Thomas Minimart
 
-![Logo](readme_assets\uncle_thomas_logo.png)
+<!-- ![Logo](readme_assets\uncle_thomas_logo.png) -->
 
 ## Objectives (MVP)
 
@@ -41,12 +41,13 @@
 
 - **dbDiagram.io**: [View ERD](https://dbdiagram.io/d/Uncle-Thomas-Minimart-15-Sep-2024-66e5bfe26dde7f41491dd8be)
 
-  ![Entity Relationship Diagram](<readme_assets/Uncle Thomas Minimart 15 Sep 2024.png>)
+  <!-- ![Entity Relationship Diagram](<readme_assets/Uncle Thomas Minimart 15 Sep 2024.png>) -->
 
 ## Frontend
 
 - **React JS (Vite)**: Modern JavaScript framework for building user interfaces.
-- **MUI**: Material-UI for pre-designed UI components.
+
+- **React-Bootstrap**: Material-UI for pre-designed UI components.
 
 ## Backend
 
@@ -63,4 +64,10 @@
 
 ## Security
 
-- **Token Revocation:** Implementing a blacklist to revoke tokens as needed.
+- **User Route Protection:** Prevents unauthorized access to protected routes.
+
+- **Token Revocation:** Uses JTI blacklist to revoke JWTs.
+
+## Backend API Tester
+
+- **Postman:** Use to test backend APIs.
