@@ -1,0 +1,30 @@
+// frontend\src\routes\AdminRoutes.jsx
+
+import { Route, Routes } from "react-router-dom";
+import Report from "../pages/Report";
+import AdminPanel from "../pages/AdminPanel";
+// import CategoryManager from "../pages/CategoryManager";
+// import ProductManager from "../pages/ProductManager";
+
+import { useAuth } from "../context/AuthContext";
+import { Navigate } from "react-router-dom";
+
+const AdminRoutes = () => {
+  const { user } = useAuth();
+
+  if (!user || user.role !== "admin") {
+    return <Navigate to="/" />;
+  }
+
+  return (
+    <Routes>
+      <Route path="report" element={<Report />} />
+      <Route path="manager" element={<AdminPanel />} />
+      {/* <Route path="categories" element={<CategoryManager />} />
+        <Route path="products" element={<ProductManager />} />
+      </Route> */}
+    </Routes>
+  );
+};
+
+export default AdminRoutes;

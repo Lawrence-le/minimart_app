@@ -1,0 +1,17 @@
+/* .admin-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+} */
+
+.container-admin {
+  height: 100vh;
+  margin-top: 5rem;
+}
+
+.admin-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
+}
