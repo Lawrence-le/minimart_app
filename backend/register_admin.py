@@ -2,6 +2,8 @@
 
 #? SQL syntax for resetting id
 ##? ALTER SEQUENCE users_id_seq RESTART WITH 1;
+#* https://medium.com/pythons-gurus/python-sys-module-beginner-guide-e7585684c26c
+#* https://www.geeksforgeeks.org/command-line-arguments-in-python/
 
 """
 This is the basic flask example
@@ -55,12 +57,10 @@ if __name__ == "__main__":
         print("Usage: python create_tables.py <username> <email> <first_name> <last_name>")
         sys.exit(1)
 
-    # Collect input from command line arguments
     username = sys.argv[1]
     email = sys.argv[2]
     first_name = sys.argv[3]
     last_name = sys.argv[4]
     password = input("Enter password: ")
 
-    # Register the admin with the additional fields
     register_admin(username, email, password, first_name, last_name)

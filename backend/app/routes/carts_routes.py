@@ -40,19 +40,19 @@ def add_to_cart():
         user_id = get_jwt_identity()
         
         cart_item = query_db(
-            "SELECT * FROM cart WHERE user_id = %s AND product_id = %s;", 
+            "SELECT * FROM carts WHERE user_id = %s AND product_id = %s;", 
             (user_id, product_id), 
             one=True
         )
 
         if cart_item:
             execute_query(
-                "UPDATE cart SET quantity = quantity + %s WHERE user_id = %s AND product_id = %s;", 
+                "UPDATE carts SET quantity = quantity + %s WHERE user_id = %s AND product_id = %s;", 
                 (quantity, user_id, product_id)
             )
         else:
             execute_query(
-                "INSERT INTO cart (user_id, product_id, quantity) VALUES (%s, %s, %s);", 
+                "INSERT INTO carts (user_id, product_id, quantity) VALUES (%s, %s, %s);", 
                 (user_id, product_id, quantity)
             )
 
@@ -76,14 +76,14 @@ def update_cart_quantity(product_id):
         user_id = get_jwt_identity()
         
         cart_item = query_db(
-            "SELECT * FROM cart WHERE user_id = %s AND product_id = %s;", 
+            "SELECT * FROM carts WHERE user_id = %s AND product_id = %s;", 
             (user_id, product_id), 
             one=True
         )
 
         if cart_item:
             execute_query(
-                "UPDATE cart SET quantity = %s WHERE user_id = %s AND product_id = %s;", 
+                "UPDATE carts SET quantity = %s WHERE user_id = %s AND product_id = %s;", 
                 (quantity, user_id, product_id)
             )
             return jsonify({"message": "Cart updated"}), 200
@@ -104,7 +104,7 @@ def remove_from_cart(product_id):
         
 
         cart_item = query_db(
-            "SELECT * FROM cart WHERE user_id = %s AND product_id = %s;", 
+            "SELECT * FROM carts WHERE user_id = %s AND product_id = %s;", 
             (user_id, product_id),
             one=True
         )
@@ -113,7 +113,7 @@ def remove_from_cart(product_id):
             return jsonify({"error": "Product not found in cart"}), 404
 
         execute_query(
-            "DELETE FROM cart WHERE user_id = %s AND product_id = %s;", 
+            "DELETE FROM carts WHERE user_id = %s AND product_id = %s;", 
             (user_id, product_id)
         )
 
@@ -131,9 +131,8 @@ def get_cart_items():
 
         user_id = get_jwt_identity()
         
-
         cart_items = query_db(
-            "SELECT * FROM cart WHERE user_id = %s;", 
+            "SELECT * FROM carts WHERE user_id = %s;", 
             (user_id,)
         )
         
@@ -141,6 +140,8 @@ def get_cart_items():
             return jsonify({"message": "No items in cart"}), 200
             
         return jsonify({"cart_items": cart_items}), 200
+        # return jsonify({"user_id": user_id, "cart_items": cart_items}), 200
+
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -154,7 +155,7 @@ def clear_cart():
         user_id = get_jwt_identity()
         
         cart_items = query_db(
-            "SELECT * FROM cart WHERE user_id = %s;", 
+            "SELECT * FROM carts WHERE user_id = %s;", 
             (user_id,)
         )
 
@@ -162,7 +163,7 @@ def clear_cart():
             return jsonify({"message": "Cart is already empty"}), 404
 
         execute_query(
-            "DELETE FROM cart WHERE user_id = %s;", 
+            "DELETE FROM carts WHERE user_id = %s;", 
             (user_id,)
         )
 

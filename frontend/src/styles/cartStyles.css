@@ -1,0 +1,19 @@
+.cart-container {
+  /* margin-top: 50rem; */
+  /* width: 100%; */
+  /* max-width: 1400px; */
+  background-color: #ffffff;
+  /* background-color: #da3b3b; */
+  /* padding: 20px; */
+  padding-top: 8rem;
+}
+
+.cart-product-card {
+}
+
+.cart-product-card img {
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  max-height: 150px;
+}

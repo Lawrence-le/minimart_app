@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { addToCart } from "../services/cartsService"; // Import the addToCart function from cartService
+import { addToCart } from "../services/cartsService";
 
 const ProductCard = ({ product }) => {
-  const handleAddToCart = async (product, quantity = 1) => {
+  const handleAddToCart = async (product, quantity) => {
     try {
       const response = await addToCart(product.id, quantity);
       console.log(`${product.name} added to cart successfully!`);
@@ -25,13 +25,17 @@ const ProductCard = ({ product }) => {
         />
       </Link>
       <Card.Body className="text-start">
-        <Card.Text className="text-start">{product.name}</Card.Text>
-        <Card.Text className="text-start">${product.price}</Card.Text>
+        <Card.Text className="text-start product-name">
+          {product.name}
+        </Card.Text>
+        <Card.Text className="text-start">
+          <strong>${product.price}</strong>
+        </Card.Text>
 
         <div className="d-flex justify-content-center">
           <Button
             className="d-flex align-items-center justify-content-center button_custom"
-            onClick={() => handleAddToCart(product, 10)} // Adjust the quantity as needed
+            onClick={() => handleAddToCart(product, 1)}
           >
             Add to Cart
           </Button>

@@ -27,7 +27,7 @@ const Home = () => {
       try {
         // Fetch category1 category data
         const category1CategoryArray = await getCategory(category1CategoryId);
-        console.log("category1 category data:", category1CategoryArray);
+        // console.log("category1 category data:", category1CategoryArray);
 
         // Check if the data is an array and access the first item
         const category1Category = Array.isArray(category1CategoryArray)
@@ -43,7 +43,7 @@ const Home = () => {
 
         // Fetch category2 category data
         const category2CategoryArray = await getCategory(category2CategoryId);
-        console.log("Ready to Eat category data:", category2CategoryArray);
+        // console.log("Ready to Eat category data:", category2CategoryArray);
         const category2Category = Array.isArray(category2CategoryArray)
           ? category2CategoryArray[0]
           : category2CategoryArray;
@@ -55,7 +55,7 @@ const Home = () => {
 
         // Fetch category3 category data
         const category3CategoryArray = await getCategory(category3CategoryId);
-        console.log("category3 category data:", category3CategoryArray);
+        // console.log("category3 category data:", category3CategoryArray);
         const category3Category = Array.isArray(category3CategoryArray)
           ? category3CategoryArray[0]
           : category3CategoryArray;
@@ -74,7 +74,7 @@ const Home = () => {
 
   const renderProductSection = (title, products) => (
     <section className="text-center category-section mb-4">
-      <h3 className="mb-3 text-start fw-bold">{title}</h3>{" "}
+      <h4 className="mb-3 text-start fw-bold">{title}</h4>
       {/* Bold and right-aligned title */}
       <Row className="justify-content-md-left">
         {Array.isArray(products) && products.length === 0 ? (
@@ -106,8 +106,8 @@ const Home = () => {
   return (
     <Container>
       <header className="text-center mb-4">
-        <h1>Welcome to My Page</h1>
-        <p>Shop our exclusive and new items today!</p>
+        {/* <h1>Welcome to My Page</h1> */}
+        <h4>Shop our exclusive and new items today!</h4>
       </header>
 
       {renderProductSection(category1Title, category1Products)}
