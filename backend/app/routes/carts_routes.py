@@ -6,7 +6,7 @@ from ..db import query_db, execute_query
 
 carts_bp = Blueprint('carts', __name__)
 
-#* Create Empty Cart []
+#* Create Empty Cart [OK]
 @carts_bp.route('/create_empty', methods=['POST'])
 def create_empty_cart():
     user_id = request.json.get('user_id')
@@ -14,8 +14,7 @@ def create_empty_cart():
     if not user_id:
         return jsonify({"msg": "User ID is required"}), 400
 
-    # Logic to create an empty cart for the user
-    # For example:
+
     query = "INSERT INTO carts (user_id) VALUES (%s)"
     execute_query(query, (user_id,))
 
@@ -24,7 +23,7 @@ def create_empty_cart():
 
 #* Add to Cart [OK]
 @carts_bp.route('/add', methods=['POST']) # http://localhost:5000/cart/add
-@jwt_required()  # Ensures the user is logged in
+@jwt_required() 
 def add_to_cart():
     data = request.json
     product_id = data.get('product_id')
@@ -34,15 +33,12 @@ def add_to_cart():
         return jsonify({"error": "Product ID is required"}), 400
 
     try:
-        # Check if product exists
         product = query_db("SELECT * FROM products WHERE id = %s;", (product_id,), one=True)
         if not product:
             return jsonify({"error": "Product not found"}), 404
 
-        # Get the current user ID from JWT
         user_id = get_jwt_identity()
         
-        # Check if the product is already in the cart for the user
         cart_item = query_db(
             "SELECT * FROM cart WHERE user_id = %s AND product_id = %s;", 
             (user_id, product_id), 
@@ -50,13 +46,11 @@ def add_to_cart():
         )
 
         if cart_item:
-            # If the product is already in the cart, update the quantity
             execute_query(
                 "UPDATE cart SET quantity = quantity + %s WHERE user_id = %s AND product_id = %s;", 
                 (quantity, user_id, product_id)
             )
         else:
-            # If the product is not in the cart, insert it
             execute_query(
                 "INSERT INTO cart (user_id, product_id, quantity) VALUES (%s, %s, %s);", 
                 (user_id, product_id, quantity)
@@ -70,7 +64,7 @@ def add_to_cart():
 
 #* Update Cart Quantity [OK]
 @carts_bp.route('/update/<int:product_id>', methods=['PUT']) # /api/carts/update/<product_id>
-@jwt_required()  # Ensures the user is logged in
+@jwt_required()  
 def update_cart_quantity(product_id):
     data = request.json
     quantity = data.get('quantity')
@@ -79,10 +73,8 @@ def update_cart_quantity(product_id):
         return jsonify({"error": "Valid quantity is required"}), 400
 
     try:
-        # Get the current user ID from JWT
         user_id = get_jwt_identity()
         
-        # Check if the product is in the cart for the user
         cart_item = query_db(
             "SELECT * FROM cart WHERE user_id = %s AND product_id = %s;", 
             (user_id, product_id), 
@@ -90,7 +82,6 @@ def update_cart_quantity(product_id):
         )
 
         if cart_item:
-            # Update the quantity if the product is already in the cart
             execute_query(
                 "UPDATE cart SET quantity = %s WHERE user_id = %s AND product_id = %s;", 
                 (quantity, user_id, product_id)
@@ -105,13 +96,13 @@ def update_cart_quantity(product_id):
 
 #* Remove Product from Cart [OK]
 @carts_bp.route('/remove/<int:product_id>', methods=['DELETE']) #  /api/carts/remove/<product_id>
-@jwt_required()  # Ensures the user is logged in
+@jwt_required()  
 def remove_from_cart(product_id):
     try:
-        # Get the current user ID from JWT
+
         user_id = get_jwt_identity()
         
-        # Check if the product exists in the cart
+
         cart_item = query_db(
             "SELECT * FROM cart WHERE user_id = %s AND product_id = %s;", 
             (user_id, product_id),
@@ -121,7 +112,6 @@ def remove_from_cart(product_id):
         if not cart_item:
             return jsonify({"error": "Product not found in cart"}), 404
 
-        # Remove the product from the cart
         execute_query(
             "DELETE FROM cart WHERE user_id = %s AND product_id = %s;", 
             (user_id, product_id)
@@ -135,19 +125,19 @@ def remove_from_cart(product_id):
     
 #* Get Cart Items [OK]
 @carts_bp.route('', methods=['GET']) # GET /api/carts
-@jwt_required()  # Ensures the user is logged in
+@jwt_required()  
 def get_cart_items():
     try:
-        # Get the current user ID from JWT
+
         user_id = get_jwt_identity()
         
-        # Retrieve all items in the cart for the user
+
         cart_items = query_db(
             "SELECT * FROM cart WHERE user_id = %s;", 
             (user_id,)
         )
         
-        if not cart_items:  # Check if the list is empty
+        if not cart_items: 
             return jsonify({"message": "No items in cart"}), 200
             
         return jsonify({"cart_items": cart_items}), 200
@@ -158,23 +148,19 @@ def get_cart_items():
 
 #* Clear Cart Items []
 @carts_bp.route('/clear', methods=['DELETE']) # /api/carts/clear
-@jwt_required()  # Ensures the user is logged in
+@jwt_required()  
 def clear_cart():
     try:
-        # Get the current user ID from JWT
         user_id = get_jwt_identity()
         
-        # Check if the cart is already empty
         cart_items = query_db(
             "SELECT * FROM cart WHERE user_id = %s;", 
             (user_id,)
         )
 
         if not cart_items:
-            # If the cart is empty, return a message indicating so
             return jsonify({"message": "Cart is already empty"}), 404
 
-        # If the cart is not empty, clear all items from the user's cart
         execute_query(
             "DELETE FROM cart WHERE user_id = %s;", 
             (user_id,)

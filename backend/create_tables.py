@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS products (
 """
 
 create_cart_table = """
-CREATE TABLE IF NOT EXISTS cart (
+CREATE TABLE IF NOT EXISTS carts (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(id),  -- References the user who owns the cart
     product_id INT REFERENCES products(id),  -- References the product being added

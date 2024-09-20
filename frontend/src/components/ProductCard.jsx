@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { addToCart } from "../services/cartsService"; // Import the addToCart function from cartService
 
 const ProductCard = ({ product }) => {
+  const handleAddToCart = async (product, quantity = 1) => {
+    try {
+      const response = await addToCart(product.id, quantity);
+      console.log(`${product.name} added to cart successfully!`);
+      console.log("Response:", response);
+    } catch (error) {
+      console.error(`Failed to add ${product.name} to cart.`, error);
+    }
+  };
+
   return (
     <Card className="product-card">
       <Link to={`/product/${product.id}`}>
@@ -11,7 +22,6 @@ const ProductCard = ({ product }) => {
           src={product.image_url}
           alt={product.name}
           className="product-image"
-          // className="d-block w-100"
         />
       </Link>
       <Card.Body className="text-start">
@@ -21,7 +31,7 @@ const ProductCard = ({ product }) => {
         <div className="d-flex justify-content-center">
           <Button
             className="d-flex align-items-center justify-content-center button_custom"
-            onClick={() => handleAddToCart(product)}
+            onClick={() => handleAddToCart(product, 10)} // Adjust the quantity as needed
           >
             Add to Cart
           </Button>
@@ -29,11 +39,6 @@ const ProductCard = ({ product }) => {
       </Card.Body>
     </Card>
   );
-};
-
-const handleAddToCart = (product) => {
-  // Implement cart functionality here
-  console.log(`${product.name} added to cart`);
 };
 
 export default ProductCard;

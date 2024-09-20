@@ -25,11 +25,14 @@ export const createEmptyCart = async (userId) => {
 };
 
 // Add a product to the cart
-export const addToCart = async (productId, quantity = 1) => {
+export const addToCart = async (productId, quantity) => {
+  const payload = { product_id: productId, quantity };
+  console.log("Payload:", payload); // Log the payload
+
   try {
     const response = await axios.post(
       `${API_URL}/add`,
-      { product_id: productId, quantity },
+      payload, // Use the payload variable instead of repeating the object
       { headers: getAuthHeaders() }
     );
     return response.data;
