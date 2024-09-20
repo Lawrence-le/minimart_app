@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { registerUser, loginUser } from "../services/userService";
-import { setToken } from "../utils/tokenUtils";
+import { setToken, getToken } from "../utils/tokenUtils";
 import { useAuth } from "../context/AuthContext";
 import { getUserProtectedData } from "../services/userService";
 import { createEmptyCart } from "../services/cartsService";
@@ -49,6 +49,7 @@ const PublicNavbar = () => {
     try {
       const { access_token } = await loginUser(username, password);
       console.log("Server response:", access_token);
+      setToken(access_token);
       login(access_token);
       console.log("Login successful! Token:", access_token);
 

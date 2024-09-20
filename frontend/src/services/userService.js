@@ -5,7 +5,7 @@ import { apiUrl } from "./apiUrl";
 import { setToken, getToken } from "../utils/tokenUtils";
 
 const USER_API_URL = `${apiUrl}/api/user`;
-const token = getToken();
+// const token = getToken();
 
 //* User Registration
 export const registerUser = async (
@@ -45,6 +45,7 @@ export const loginUser = async (username, password) => {
 //* User Logout
 
 export const logoutUser = async () => {
+  const token = getToken();
   try {
     await axios.post(`${USER_API_URL}/logout`, null, {
       headers: {
@@ -56,22 +57,23 @@ export const logoutUser = async () => {
   }
 };
 
-//* Get User Protected Data
+//* Get User Protected Data [OK]
 export const getUserProtectedData = async () => {
-  const user_token = localStorage.getItem("accessToken");
+  const token = getToken();
+
   if (!token) {
+    console.error("No token found in localStorage");
     throw new Error("No access token found. Please login.");
   }
 
   try {
     const response = await axios.get(`${USER_API_URL}/protected`, {
       headers: {
-        Authorization: `Bearer ${user_token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
     console.log("Protected Data Response:", response.data);
-
     return response.data;
   } catch (error) {
     console.error("Error fetching protected data:", error);

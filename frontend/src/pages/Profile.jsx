@@ -13,7 +13,7 @@ import { getUserProtectedData } from "../services/userService";
 import { format } from "date-fns";
 
 const Profile = () => {
-  const { user, logout } = useAuth();
+  const { user, login } = useAuth();
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -22,6 +22,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const { user_data } = await getUserProtectedData();
+        console.log(user_data);
         const [id, username, email, firstName, lastName, isAdmin, createdAt] =
           user_data;
         setUserData({
