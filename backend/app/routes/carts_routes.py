@@ -171,3 +171,51 @@ def clear_cart():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+
+#* Get Cart Total []
+@carts_bp.route('/total', methods=['GET'])  # GET /api/carts/total
+@jwt_required()
+def get_cart_total():
+    try:
+        user_id = get_jwt_identity()
+
+        total = query_db("""
+            SELECT SUM(c.quantity * p.price) AS total
+            FROM carts c
+            JOIN products p ON c.product_id = p.id
+            WHERE c.user_id = %s
+            GROUP BY c.user_id;
+        """, (user_id,), one=True)
+
+        if total and total['total'] is not None:
+            return jsonify({"total": float(total['total'])}), 200
+        else:
+            return jsonify({"total": 0}), 200 
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+#* Get All Cart Products []
+@carts_bp.route('/products', methods=['GET'])  # GET /api/carts/products
+@jwt_required()
+def get_cart_products():
+    try:
+        user_id = get_jwt_identity()
+
+        cart_products = query_db("""
+            SELECT c.id, c.product_id, c.quantity, p.name, p.price, p.image_url
+            FROM carts c
+            JOIN products p ON c.product_id = p.id
+            WHERE c.user_id = %s;
+        """, (user_id,))
+
+        if cart_products:
+            return jsonify({"cart_products": cart_products}), 200
+        else:
+            return jsonify({"message": "No items in cart"}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

@@ -105,9 +105,11 @@ const Home = () => {
 
   return (
     <Container>
-      <header className="text-center mb-4">
+      <header className="text-center mb-4" style={{ marginTop: "10rem" }}>
         {/* <h1>Welcome to My Page</h1> */}
-        <h4>Shop our exclusive and new items today!</h4>
+        <h3 style={{ color: "#2471a3 " }}>
+          Your Friendly Neighbourhood Minimart
+        </h3>
       </header>
 
       {renderProductSection(category1Title, category1Products)}

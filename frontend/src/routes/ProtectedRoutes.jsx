@@ -2,7 +2,7 @@
 import { Route, Routes } from "react-router-dom";
 import Cart from "../pages/Cart";
 import Profile from "../pages/Profile";
-// import Checkout from "../pages/Checkout";
+import Checkout from "../pages/Checkout";
 // import Payment from "../pages/Payment";
 // import MyOrders from "../pages/MyOrders";
 // import OrderConfirmation from "../pages/OrderConfirmation";
@@ -20,10 +20,10 @@ const ProtectedRoutes = () => {
     <Routes>
       <Route path="cart" element={<Cart />} />
       <Route path="profile" element={<Profile />} />
-      {/* <Route path="/checkout" element={<Checkout />} />
-      <Route path="/payment" element={<Payment />} />
+      <Route path="checkout" element={<Checkout />} />
+      {/* <Route path="/payment" element={<Payment />} />
       <Route path="/myorders" element={<MyOrders />} />
-      <Route path="/orderconfirmation" element={<OrderConfirmation />} /> */}
+      <Route path="/orderconfirmation" element={<OrderConfirmation />} />  */}
     </Routes>
   );
 };

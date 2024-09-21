@@ -27,11 +27,13 @@ def create_app():
     from .routes.products_routes import products_bp
     from .routes.categories_routes import categories_bp
     from .routes.carts_routes import carts_bp
+    from .routes.addresses_routes import addresses_bp
 
     app.register_blueprint(admin_bp, url_prefix='/api/admin')
     app.register_blueprint(user_bp, url_prefix='/api/user')
     app.register_blueprint(products_bp, url_prefix='/api/products')
     app.register_blueprint(categories_bp, url_prefix='/api/categories')
     app.register_blueprint(carts_bp, url_prefix='/api/carts')
+    app.register_blueprint(addresses_bp, url_prefix='/api/addresses')
 
     return app

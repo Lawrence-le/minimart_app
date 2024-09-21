@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { removeToken } from "../utils/tokenUtils";
 import { useAuth } from "../context/AuthContext";
@@ -30,27 +30,28 @@ const AdminNavbar = () => {
   return (
     <>
       {/* Main Navbar */}
-      {/* <Navbar className="custom-navbar-admin px-5"> */}
-      <Navbar className="custom-navbar-admin px-2" fixed="top">
-        <Nav className="me-auto">
-          <Nav.Link as={Link} to="/" className="mx-2">
-            Home
-          </Nav.Link>
-          <Nav.Link as={Link} to="/profile" className="mx-2">
-            Reports
-          </Nav.Link>
-          <Nav.Link as={Link} to="/admin/manager" className="mx-2">
-            Manager
-          </Nav.Link>
-          <Nav.Link as={Link} to="/admin/shipment" className="mx-2">
-            Shipments
-          </Nav.Link>
-        </Nav>
-        <Nav className="ms-auto">
-          <Nav.Link as="button" onClick={handleLogout} className="mx-2">
-            <span className="material-icons">logout</span>
-          </Nav.Link>
-        </Nav>
+      <Navbar className="custom-navbar-admin" fixed="top">
+        <Container>
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/" className="mx-2">
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/profile" className="mx-2">
+              Reports
+            </Nav.Link>
+            <Nav.Link as={Link} to="/admin/manager" className="mx-2">
+              Manager
+            </Nav.Link>
+            <Nav.Link as={Link} to="/admin/shipment" className="mx-2">
+              Shipments
+            </Nav.Link>
+          </Nav>
+          <Nav className="ms-auto">
+            <Nav.Link as="button" onClick={handleLogout} className="mx-2">
+              <span className="material-icons">logout</span>
+            </Nav.Link>
+          </Nav>
+        </Container>
       </Navbar>
 
       {/* Fixed Search Bar */}

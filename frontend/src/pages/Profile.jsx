@@ -63,7 +63,7 @@ const Profile = () => {
   }
 
   return (
-    <Container className="container">
+    <Container className="container" style={{ marginTop: "10rem" }}>
       <Row className="justify-content-center">
         <Col md={6}>
           <Card className="shadow-sm">

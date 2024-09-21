@@ -6,14 +6,22 @@
   /* background-color: #da3b3b; */
   /* padding: 20px; */
   padding-top: 8rem;
+  align-items: center;
 }
 
 .cart-product-card {
+  display: flex;
+  justify-items: center;
 }
 
 .cart-product-card img {
   width: auto;
-  height: auto;
+  /* height: auto; */
   object-fit: cover;
-  max-height: 150px;
+  max-height: 80px;
+}
+
+.checkout-container {
+  padding-top: 8rem;
+  align-items: center;
 }

@@ -13,9 +13,10 @@ import UserNavbar from "./components/UserNavbar";
 import AdminNavbar from "./components/AdminNavbar";
 
 import "./styles/globalStyles.css";
-import PublicHeader from "./components/PublicHeader";
+// import PublicHeader from "./components/PublicHeader";
 // import Profile from "./pages/Profile";
 import Home from "./pages/Home";
+import { getToken } from "./utils/tokenUtils";
 
 const App = () => {
   // let Navbar;
@@ -25,6 +26,7 @@ const App = () => {
 
   const { user } = useAuth();
   console.log("Current user:", user);
+  console.log("User Token: ", getToken());
   // console.log("User Role: ", user.role);
 
   let Navbar;

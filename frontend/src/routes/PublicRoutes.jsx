@@ -11,11 +11,11 @@ import Home from "../pages/Home";
 const PublicRoutes = () => (
   <Routes>
     {/* <Route path="/" element={<Home />} /> */}
-    {/* <Route path="/store" element={<Store />} />
-    <Route path="/search" element={<SearchResults />} />
+    {/* <Route path="/store" element={<Store />} /> */}
+    {/* <Route path="/search" element={<SearchResults />} />
     <Route path="/product" element={<ProductDetails />} />
     <Route path="/login" element={<Login />} />
-    <Route path="/register" element={<Register />} /> */}
+    <Route path="/register" element={<Register />} />  */}
   </Routes>
 );
 

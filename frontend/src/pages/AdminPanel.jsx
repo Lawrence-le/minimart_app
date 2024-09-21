@@ -10,7 +10,7 @@ const AdminPanel = () => {
   const [activeComponent, setActiveComponent] = useState("productmanager");
 
   return (
-    <Container fluid className="container-admin">
+    <Container className="container-admin px-3">
       <Row>
         <Col md={2} xs={12} className="mx-2">
           <h5>Admin Manager</h5>
@@ -22,7 +22,7 @@ const AdminPanel = () => {
               active={activeComponent === "productmanager"}
               onClick={() => setActiveComponent("productmanager")}
             >
-              Add/Edit/Delete
+              Inventory
             </Nav.Link>
 
             <div>Categories</div>

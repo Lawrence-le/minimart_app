@@ -1,119 +1,171 @@
-// frontend\src\pages\Cart.jsx
 import { useEffect, useState } from "react";
-import { Button, Row, Col, Card, Container } from "react-bootstrap";
+import { Button, Row, Col, Card, Container, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import CartProductCard from "../components/CartProductCard";
-import { getCartItems } from "../services/cartsService";
-import { getProducts } from "../services/productsService";
+import {
+  getCartProducts,
+  removeFromCart,
+  updateCartQuantity,
+  getCartTotal,
+} from "../services/cartsService";
 import "../styles/cartStyles.css";
+import { useCart } from "../context/CartContext";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [shippingCost] = useState(5.0); // Example shipping cost
-  const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [totalCart, setTotalCart] = useState(0);
+  const [totalOrder, setTotalOrder] = useState(0);
+  const { shippingCost } = useCart();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const response = await getCartItems();
-        const items = response.cart_items;
-        console.log("Cart items fetched: ", items);
-        setCartItems(items);
-
-        const productResponse = await getProducts();
-        const allProducts = productResponse.products;
-        console.log("Fetched products: ", allProducts);
-        setProducts(allProducts);
-      } catch (error) {
-        console.error("Failed to fetch cart items.", error);
-        setCartItems([]);
-      }
-    };
-
-    fetchCartItems();
-  }, []);
-
-  // Calculate total price
-  const totalPrice = cartItems
-    .reduce((total, item) => {
-      const product = products.find((prod) => prod.id === item.product_id);
-      return product ? total + product.price * item.quantity : total;
-    }, 0)
-    .toFixed(2);
-
-  // Update the total state whenever cartItems or shippingCost changes
-  useEffect(() => {
-    setTotal((parseFloat(totalPrice) + shippingCost).toFixed(2));
-  }, [totalPrice, shippingCost]);
-
-  const handleRemoveFromCart = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  const handleUpdateCartItem = (id, quantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) => (item.id === id ? { ...item, quantity } : item))
+  const updateTotals = (totalAmount) => {
+    setTotalCart(totalAmount.toFixed(2));
+    setTotalOrder(
+      (parseFloat(totalAmount) + parseFloat(shippingCost)).toFixed(2)
     );
   };
 
-  const handleProceedToCheckout = () => {
-    navigate("/checkout", { state: { total, shippingCost } });
+  useEffect(() => {
+    const fetchCartData = async () => {
+      try {
+        const cartResponse = await getCartProducts();
+        setCartItems(cartResponse);
+        const totalAmount = await getCartTotal();
+        updateTotals(totalAmount);
+      } catch (error) {
+        console.error("Failed to fetch cart data.", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCartData();
+  }, [shippingCost]);
+
+  const handleRemove = async (productId) => {
+    try {
+      await removeFromCart(productId);
+      const updatedItems = cartItems.filter(
+        (item) => item.product_id !== productId
+      );
+      setCartItems(updatedItems);
+      // Re-fetch total after removal
+      const totalAmount = await getCartTotal();
+      updateTotals(totalAmount);
+    } catch (error) {
+      console.error("Failed to remove product from cart.", error);
+    }
   };
+
+  const handleUpdateQuantity = async (productId, newQuantity) => {
+    try {
+      await updateCartQuantity(productId, newQuantity);
+      const updatedItems = cartItems.map((item) =>
+        item.product_id === productId
+          ? { ...item, quantity: newQuantity }
+          : item
+      );
+      setCartItems(updatedItems);
+      const totalAmount = await getCartTotal();
+      updateTotals(totalAmount);
+    } catch (error) {
+      console.error("Failed to update product quantity in cart.", error);
+    }
+  };
+
+  const handleProceedToCheckout = () => {
+    navigate("/checkout");
+  };
+
+  const handleContinueShopping = () => {
+    navigate("/store");
+  };
+
+  if (loading) {
+    return (
+      <Container className="cart-container mt-4">
+        <Row className="justify-content-center mb-2">
+          <Col md={10}>
+            <h4>Your Cart</h4>
+          </Col>
+        </Row>
+        <div className="text-center mt-5">
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </div>
+      </Container>
+    );
+  }
+
+  console.log("total order: ", totalOrder);
 
   return (
     <Container className="cart-container mt-4">
-      <h3 className="mb-3">Your Cart</h3>
-      <Row>
-        <Col md={8}>
-          {cartItems.map((item) => {
-            const product = products.find(
-              (prod) => prod.id === item.product_id
-            );
-            console.log("Cart Item: ", item, "Product: ", product);
-
-            return (
-              product && (
-                <CartProductCard
-                  key={item.id}
-                  product={{ ...product, quantity: item.quantity }}
-                  onRemove={handleRemoveFromCart}
-                  onUpdate={handleUpdateCartItem}
-                />
-              )
-            );
-          })}
-        </Col>
-        <Col md={4}>
-          <Card className="mb-4">
-            <Card.Body>
-              <h4>Order Summary</h4>
-              <hr />
-              <div className="d-flex justify-content-between">
-                <span>Total Item Price:</span>
-                <span>${totalPrice}</span>
-              </div>
-              <div className="d-flex justify-content-between">
-                <span>Shipping:</span>
-                <span>${shippingCost.toFixed(2)}</span>
-              </div>
-              <hr />
-              <div className="d-flex justify-content-between">
-                <h5>Total:</h5>
-                <h5>${total}</h5>
-              </div>
-              <Button
-                variant="info"
-                className="button_custom mt-3"
-                onClick={handleProceedToCheckout}
-              >
-                Proceed to Checkout
-              </Button>
-            </Card.Body>
-          </Card>
+      <Row className="justify-content-center mb-2">
+        <Col md={10}>
+          <h4>Your Cart</h4>
         </Col>
       </Row>
+
+      {cartItems.length === 0 ? (
+        <div className="text-center">
+          <p>Your cart is empty</p>
+          <Button
+            variant="info"
+            className="button_custom mt-3"
+            onClick={handleContinueShopping}
+          >
+            Continue Shopping
+          </Button>
+        </div>
+      ) : (
+        <Row className="justify-content-center">
+          <Col md={6} className="mb-4">
+            {cartItems.map((item) => (
+              <CartProductCard
+                key={item.product_id}
+                product={item}
+                onRemove={handleRemove}
+                onUpdate={handleUpdateQuantity}
+              />
+            ))}
+          </Col>
+          <Col md={4}>
+            <Card className="mb-4">
+              <Card.Body>
+                <h5 className="text-center">Order Summary</h5>
+                <hr />
+                <div className="d-flex justify-content-between">
+                  <span>Total Item Price:</span>
+                  <span>${totalCart}</span>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <span>Shipping:</span>
+                  <span>${shippingCost}</span>
+                </div>
+                <hr />
+                <div className="d-flex justify-content-between">
+                  <p>
+                    <strong>Total:</strong>
+                  </p>
+                  <p>
+                    <strong>${totalOrder}</strong>
+                  </p>
+                </div>
+                <Button
+                  variant="info"
+                  className="button_custom mt-3"
+                  onClick={handleProceedToCheckout}
+                >
+                  Proceed to Checkout
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

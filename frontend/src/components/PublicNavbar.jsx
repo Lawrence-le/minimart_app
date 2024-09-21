@@ -5,17 +5,20 @@ import {
   Navbar,
   Nav,
   Form,
-  FormControl,
   Modal,
   Button,
   InputGroup,
+  Container,
+  Row,
+  Col,
 } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { registerUser, loginUser } from "../services/userService";
-import { setToken, getToken } from "../utils/tokenUtils";
+import { setToken } from "../utils/tokenUtils";
 import { useAuth } from "../context/AuthContext";
-import { getUserProtectedData } from "../services/userService";
-import { createEmptyCart } from "../services/cartsService";
+// import { getUserProtectedData } from "../services/userService";
+// import { createEmptyCart } from "../services/cartsService";
+import SearchNavBar from "../components/SearchNavbar";
 
 const PublicNavbar = () => {
   const { login } = useAuth();
@@ -30,14 +33,6 @@ const PublicNavbar = () => {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [error, setError] = useState("");
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    const query = event.target.search.value;
-    if (query) {
-      navigate(`/search?q=${encodeURIComponent(query)}`);
-    }
-  };
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -54,7 +49,7 @@ const PublicNavbar = () => {
       console.log("Login successful! Token:", access_token);
 
       setShowModal(false);
-      navigate("/profile");
+      navigate("/");
     } catch (error) {
       setError("Login failed. Please try again.");
     }
@@ -75,7 +70,7 @@ const PublicNavbar = () => {
       const userId = userResponse[0];
       console.log("User Id of sign up user: ", userId);
 
-      await createEmptyCart(userId);
+      // await createEmptyCart(userId);
 
       setIsLogin(true);
     } catch (error) {
@@ -91,31 +86,30 @@ const PublicNavbar = () => {
   return (
     <>
       {/* Main Navbar */}
-      <Navbar className="custom-navbar px-5" fixed="top">
-        <Nav className="me-auto">
-          <Nav.Link as={Link} to="/store" className="mx-2">
-            Store
-          </Nav.Link>
-        </Nav>
-        <Nav className="ms-auto">
-          <Nav.Link className="mx-2" onClick={toggleModal}>
-            <span className="material-icons">login</span> Login/Register
-          </Nav.Link>
-        </Nav>
+      <Navbar className="custom-navbar px-5" fixed="top" expand="lg">
+        <Container>
+          <Row className="w-100 align-items-center">
+            <Col xs="auto">
+              <Nav>
+                <Nav.Link as={Link} to="/" className="mx-2">
+                  Home
+                </Nav.Link>
+                <Nav.Link as={Link} to="/store" className="mx-2">
+                  Store
+                </Nav.Link>
+              </Nav>
+            </Col>
+            <Col xs="auto" className="ms-auto">
+              <Nav>
+                <Nav.Link className="mx-2" onClick={toggleModal}>
+                  <span className="material-icons">login</span> Login/Register
+                </Nav.Link>
+              </Nav>
+            </Col>
+          </Row>
+        </Container>
       </Navbar>
-
-      {/* Fixed Search Bar */}
-      <div className="search-bar-container">
-        <Form className="d-flex w-100" onSubmit={handleSearchSubmit}>
-          <FormControl
-            type="search"
-            name="search"
-            placeholder="Search"
-            className="search-input mx-auto"
-            aria-label="Search"
-          />
-        </Form>
-      </div>
+      <SearchNavBar />
 
       {/* Modal for Login/Register */}
       <Modal

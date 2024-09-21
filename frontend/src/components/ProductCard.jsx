@@ -37,7 +37,7 @@ const ProductCard = ({ product }) => {
             className="d-flex align-items-center justify-content-center button_custom"
             onClick={() => handleAddToCart(product, 1)}
           >
-            Add to Cart
+            Add to cart
           </Button>
         </div>
       </Card.Body>

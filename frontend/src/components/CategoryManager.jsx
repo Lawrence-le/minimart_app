@@ -66,6 +66,7 @@ const CategoryManager = () => {
 
   return (
     <div>
+      <h5 className="mb-3">Categories</h5>
       <div className="mb-3">
         <p>
           <strong>Add New Category</strong>

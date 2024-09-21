@@ -5,7 +5,7 @@ import { getToken } from "../utils/tokenUtils";
 
 const API_URL = `${apiUrl}/api/carts`;
 
-const getAuthHeaders = () => {
+const headers = () => {
   const token = getToken();
   return { Authorization: `Bearer ${token}` };
 };
@@ -16,7 +16,7 @@ export const createEmptyCart = async (userId) => {
     const response = await axios.post(
       `${API_URL}/create_empty`,
       { user_id: userId },
-      { headers: getAuthHeaders() }
+      { headers: headers() }
     );
     return response.data;
   } catch (error) {
@@ -33,7 +33,7 @@ export const addToCart = async (productId, quantity) => {
     const response = await axios.post(
       `${API_URL}/add`,
       payload, // Use the payload variable instead of repeating the object
-      { headers: getAuthHeaders() }
+      { headers: headers() }
     );
     return response.data;
   } catch (error) {
@@ -47,7 +47,7 @@ export const updateCartQuantity = async (productId, quantity) => {
     const response = await axios.put(
       `${API_URL}/update/${productId}`,
       { quantity },
-      { headers: getAuthHeaders() }
+      { headers: headers() }
     );
     return response.data;
   } catch (error) {
@@ -59,7 +59,7 @@ export const updateCartQuantity = async (productId, quantity) => {
 export const removeFromCart = async (productId) => {
   try {
     const response = await axios.delete(`${API_URL}/remove/${productId}`, {
-      headers: getAuthHeaders(),
+      headers: headers(),
     });
     return response.data;
   } catch (error) {
@@ -71,7 +71,7 @@ export const removeFromCart = async (productId) => {
 export const getCartItems = async () => {
   try {
     const response = await axios.get(API_URL, {
-      headers: getAuthHeaders(),
+      headers: headers(),
     });
     return response.data;
   } catch (error) {
@@ -83,10 +83,36 @@ export const getCartItems = async () => {
 export const clearCart = async () => {
   try {
     const response = await axios.delete(`${API_URL}/clear`, {
-      headers: getAuthHeaders(),
+      headers: headers(),
     });
     return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
+  }
+};
+// Get Cart Total
+export const getCartTotal = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/total`, {
+      // updated
+      headers: headers(),
+    });
+    return response.data.total;
+  } catch (error) {
+    console.error("Error fetching cart total", error);
+    throw error;
+  }
+};
+
+// Get All Cart Products
+export const getCartProducts = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/products`, {
+      headers: headers(),
+    });
+    return response.data.cart_products;
+  } catch (error) {
+    console.error("Error fetching cart products", error);
+    throw error;
   }
 };

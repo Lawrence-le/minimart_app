@@ -167,6 +167,7 @@ const ProductManager = () => {
 
   return (
     <div>
+      <h5 className="mb-3">Inventory</h5>
       <Button
         variant="dark"
         size="sm"

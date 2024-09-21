@@ -76,18 +76,32 @@ CREATE TABLE IF NOT EXISTS carts (
 # );
 # """
 
+# create_addresses_table = """
+# CREATE TABLE IF NOT EXISTS addresses (
+#     id SERIAL PRIMARY KEY,
+#     user_id INTEGER REFERENCES users(id),
+#     address_line1 VARCHAR(255) NOT NULL,
+#     address_line2 VARCHAR(255),
+#     city VARCHAR(100) NOT NULL,
+#     state VARCHAR(100) NOT NULL,
+#     postal_code VARCHAR(20) NOT NULL,
+#     country VARCHAR(100) NOT NULL,
+#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+# );
+# """
+
 create_addresses_table = """
 CREATE TABLE IF NOT EXISTS addresses (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id),
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
     address_line1 VARCHAR(255) NOT NULL,
     address_line2 VARCHAR(255),
-    city VARCHAR(100) NOT NULL,
-    state VARCHAR(100) NOT NULL,
     postal_code VARCHAR(20) NOT NULL,
-    country VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 """
 
 create_orders_table = """
