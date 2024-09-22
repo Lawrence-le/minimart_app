@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Cart from "../pages/Cart";
 import Profile from "../pages/Profile";
 import Checkout from "../pages/Checkout";
-import CheckoutForm from "../components/PaymentForm";
+import Payment from "../components/Payment";
 import Cancel from "../pages/Cancel";
 import Success from "../pages/Success";
 
@@ -25,7 +25,7 @@ const ProtectedRoutes = () => {
       <Route path="cart" element={<Cart />} />
       <Route path="profile" element={<Profile />} />
       <Route path="checkout" element={<Checkout />} />
-      <Route path="paymentform" element={<CheckoutForm />} />
+      {/* <Route path="payment" element={<Payment />} /> */}
       <Route path="success" element={<Success />} />
       <Route path="cancel" element={<Cancel />} />
 

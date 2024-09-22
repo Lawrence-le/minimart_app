@@ -12,6 +12,8 @@ import PublicNavbar from "./components/PublicNavbar";
 import UserNavbar from "./components/UserNavbar";
 import AdminNavbar from "./components/AdminNavbar";
 
+import Payment from "./components/Payment";
+
 import "./styles/globalStyles.css";
 // import PublicHeader from "./components/PublicHeader";
 // import Profile from "./pages/Profile";

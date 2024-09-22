@@ -7,6 +7,12 @@ import { getAddresses } from "../services/addressesService";
 import CartProductCard from "../components/CartProductCard";
 import AddressForm from "../components/AddressForm";
 import { useCart } from "../context/CartContext";
+import { createOrder } from "../services/ordersService";
+import CheckoutForm from "../components/Payment";
+import { useNavigate } from "react-router-dom";
+import { getOrderDetails, getUserOrders } from "../services/ordersService";
+import { createCheckoutSession } from "../services/paymentService";
+
 import "../styles/cartStyles.css";
 
 const CheckoutPage = () => {
@@ -17,6 +23,8 @@ const CheckoutPage = () => {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [orderCreated, setOrderCreated] = useState(false);
+  const navigate = useNavigate();
 
   const updateTotals = (totalAmount) => {
     setTotalCart(totalAmount.toFixed(2));
@@ -52,23 +60,83 @@ const CheckoutPage = () => {
     fetchAddresses();
   }, [shippingCost]);
 
-  const handleProceedToPayment = () => {
+  // //! CHECK order id
+  // useEffect(() => {
+  //   const fetchOrderData = async () => {
+  //     try {
+  //       const orderResponse = await getUserOrders();
+  //       const orderId = orderResponse[0].id;
+  //       console.log("This order's response: ", orderResponse);
+  //       console.log("This order's ID: ", orderId);
+  //     } catch (error) {
+  //       console.error("Error fetching order data:", error);
+  //     }
+  //   };
+
+  //   fetchOrderData();
+  // }, []);
+
+  const handleProceedToPayment = async () => {
     if (!addresses.length) {
       alert("Please add an address before proceeding to payment.");
       return;
     }
 
     if (selectedAddressId) {
-      const selectedAddress = addresses.find(
-        (address) => address.id === selectedAddressId
-      );
+      const orderData = {
+        shipping_address_id: selectedAddressId,
+      };
+      try {
+        // Step 1: Create Order
+        await createOrder(orderData);
 
-      console.log("Selected Address Details:", selectedAddress);
-      console.log("Proceeding to payment with address:", selectedAddress);
+        const orderResponse = await getUserOrders();
+        // const orderId = orderResponse.id;
+        const orderId = orderResponse[0].id;
+
+        console.log("This order's ID: ", orderId);
+
+        // Step 2: Fetch Order Details
+        const orderDetails = await getOrderDetails(orderId);
+
+        // Step 3: Create Stripe Checkout Session
+        const sessionResponse = await createCheckoutSession({
+          total_amount: orderDetails.order.total * 100,
+          shipping_address: orderDetails.order.shipping_address_id,
+        });
+
+        // Step 4: Redirect to Stripe checkout page
+        window.location.href = sessionResponse.url;
+      } catch (error) {
+        console.error("Error during payment process:", error);
+      }
     } else {
       alert("Please select an address before proceeding to payment.");
     }
   };
+  // const handleProceedToPayment = async () => {
+  //   if (!addresses.length) {
+  //     alert("Please add an address before proceeding to payment.");
+  //     return;
+  //   }
+
+  //   if (selectedAddressId) {
+  //     const orderData = {
+  //       shipping_address_id: selectedAddressId,
+  //     };
+  //     console.log("selected address: ", selectedAddressId);
+  //     try {
+  //       const orderResponse = await createOrder(orderData);
+  //       console.log("Order created successfully:", orderResponse);
+  //       setOrderCreated(true);
+  //       navigate("/payment", { state: { totalOrder, shippingCost } });
+  //     } catch (error) {
+  //       console.error("Error creating order:", error);
+  //     }
+  //   } else {
+  //     alert("Please select an address before proceeding to payment.");
+  //   }
+  // };
 
   if (loading) {
     return (
@@ -86,13 +154,17 @@ const CheckoutPage = () => {
       </Container>
     );
   }
-
+  const handleContinueShopping = () => {
+    navigate("/store");
+  };
   const textStyle = {
     fontFamily: "Montserrat, sans-serif",
     fontOpticalSizing: "auto",
     fontWeight: "400",
     fontStyle: "normal",
   };
+
+  // console.log("Cart Items: ", cartItems);
 
   return (
     <Container className="checkout-container mt-4">
@@ -107,60 +179,73 @@ const CheckoutPage = () => {
         </Col>
       </Row>
 
-      <Row className="justify-content-center">
-        <Col md={6} className="mb-4">
-          <Card className="mb-4">
-            <Card.Body>
-              <AddressForm
-                addresses={addresses}
-                setAddresses={setAddresses}
-                setSelectedAddressId={setSelectedAddressId}
-              />
-            </Card.Body>
-          </Card>
-        </Col>
+      {/* Check if cart is empty */}
+      {!cartItems ? (
+        <Row className="justify-content-center">
+          <Col md={10}>
+            <p>Your cart is empty.</p>
+            <Button
+              variant="info"
+              className="button_custom mt-3"
+              onClick={handleContinueShopping}
+            >
+              Continue Shopping
+            </Button>
+          </Col>
+        </Row>
+      ) : (
+        <Row className="justify-content-center">
+          <Col md={6} className="mb-4">
+            <Card className="mb-4">
+              <Card.Body>
+                <AddressForm
+                  addresses={addresses}
+                  setAddresses={setAddresses}
+                  setSelectedAddressId={setSelectedAddressId}
+                />
+              </Card.Body>
+            </Card>
+          </Col>
 
-        <Col md={4}>
-          {cartItems.length > 0 ? (
-            cartItems.map((item) => (
+          <Col md={4}>
+            {cartItems.map((item) => (
               <CartProductCard
                 key={item.product_id}
                 product={item}
                 isCheckout={true}
               />
-            ))
-          ) : (
-            <p>Your cart is empty.</p>
-          )}
-          <Card.Body>
-            <hr />
-            <div className="d-flex justify-content-between">
-              <span>Subtotal:</span>
-              <span>${totalCart}</span>
-            </div>
-            <div className="d-flex justify-content-between">
-              <span>Shipping:</span>
-              <span>${shippingCost}</span>
-            </div>
-            <hr />
-            <div className="d-flex justify-content-between">
-              <p>
-                <strong>Total:</strong>
-              </p>
-              <p>
-                <strong>${totalOrder}</strong>
-              </p>
-            </div>
-            <Button
-              variant="info"
-              className="button_custom mt-3 mb-5"
-              onClick={handleProceedToPayment}
-            >
-              Proceed to Payment
-            </Button>
-          </Card.Body>
-        </Col>
-      </Row>
+            ))}
+            <Card.Body>
+              <hr />
+              <div className="d-flex justify-content-between">
+                <span>Subtotal:</span>
+                <span>${totalCart}</span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span>Shipping:</span>
+                <span>${shippingCost}</span>
+              </div>
+              <hr />
+              <div className="d-flex justify-content-between">
+                <p>
+                  <strong>Total:</strong>
+                </p>
+                <p>
+                  <strong>${totalOrder}</strong>
+                </p>
+              </div>
+              <Button
+                variant="info"
+                className="button_custom mt-3 mb-5"
+                onClick={handleProceedToPayment}
+              >
+                Proceed to Payment
+              </Button>
+            </Card.Body>
+          </Col>
+        </Row>
+      )}
+      {orderCreated && <CheckoutForm />}
     </Container>
   );
 };

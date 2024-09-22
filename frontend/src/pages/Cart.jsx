@@ -109,7 +109,7 @@ const Cart = () => {
         </Col>
       </Row>
 
-      {cartItems.length === 0 ? (
+      {cartItems === undefined ? (
         <div className="text-center">
           <p>Your cart is empty</p>
           <Button

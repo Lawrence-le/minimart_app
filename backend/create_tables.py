@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS order_items (
     order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
     product_id INTEGER REFERENCES products(id),
     quantity INTEGER NOT NULL,
-    price_at_purchase DECIMAL(10, 2) NOT NULL
+    price DECIMAL(10, 2) NOT NULL
 );
 """
 

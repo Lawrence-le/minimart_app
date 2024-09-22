@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiUrl } from "../config";
+import { apiUrl } from "./apiUrl";
 import { getToken } from "../utils/tokenUtils";
 
 const API_URL = `${apiUrl}/api/orders`;
