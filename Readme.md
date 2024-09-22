@@ -1,4 +1,4 @@
-# Uncle Thomas Minimart
+# Minimart App
 
 <!-- ![Logo](readme_assets\uncle_thomas_logo.png) -->
 
