@@ -85,8 +85,9 @@ body {
 .product-card img {
   width: 100%;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
   max-height: 200px;
+  padding: 1rem;
 }
 
 .product-name {

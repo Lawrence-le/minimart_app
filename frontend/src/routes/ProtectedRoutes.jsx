@@ -24,7 +24,6 @@ const ProtectedRoutes = () => {
       <Route path="cart" element={<Cart />} />
       <Route path="profile" element={<Profile />} />
       <Route path="checkout" element={<Checkout />} />
-      {/* <Route path="payment" element={<Payment />} /> */}
       <Route path="success" element={<Success />} />
       <Route path="cancel" element={<Cancel />} />
 

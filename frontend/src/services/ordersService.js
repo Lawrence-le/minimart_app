@@ -34,3 +34,25 @@ export const getOrderDetails = async (orderId) => {
   });
   return response.data;
 };
+
+// Confirm order status
+export const confirmOrderStatus = async (orderId) => {
+  // console.log("Confirming order ID:", orderId);
+  const token = getToken();
+
+  try {
+    // console.log("TOKEN SUCCESS PAGE: ", token);
+    const response = await axios.put(
+      `${API_URL}/${orderId}/confirm`, // Correct URL
+      {}, // Empty body since we're not sending data
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};

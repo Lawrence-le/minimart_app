@@ -55,15 +55,16 @@ def create_checkout_session():
             })
 
 
-                    # Create a checkout session
+        # Create a checkout session
         session = stripe.checkout.Session.create(
             # shipping_options=shipping_options,
             payment_method_types=['card'],
             line_items=line_items,
             mode='payment',
             metadata={'order_id': str(order_id)},  # Store order_id in metadata
-            success_url=f'{frontend_url}/success',
-            cancel_url=f'{frontend_url}/cancel',
+            # success_url=f'{frontend_url}/success',
+            success_url=f'{frontend_url}/success?order_id={order_id}',
+            cancel_url=f'{frontend_url}/cancel?order_id={order_id}',
         )
         return jsonify({'id': session.id, 'url': session.url})
     except Exception as e:

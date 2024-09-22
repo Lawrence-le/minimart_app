@@ -117,6 +117,40 @@ def get_order_details(order_id):
         return jsonify({"error": str(e)}), 500
 
 
+
+#* Confirm Order Status [OK]
+@orders_bp.route('/<int:order_id>/confirm', methods=['PUT'])  # PUT /api/orders/<order_id>/confirm
+@jwt_required()
+def confirm_order_status(order_id):
+    user_id = get_jwt_identity()
+    try:
+
+        print(f"User ID: {user_id}, Order ID: {order_id}")
+
+        # Check order for order id and user id
+        query = "SELECT * FROM orders WHERE id = %s AND user_id = %s;"
+        print(f"Executing query: {query} with parameters: (id={order_id}, user_id={user_id})")
+        order = query_db(query, (order_id, user_id), one=True)
+        
+        if not order:
+            print("Order not found.")
+            return jsonify({"error": "Order not found"}), 404
+        
+        print("Found order:", order)
+
+        # Update the order status
+        update_query = "UPDATE orders SET status = %s WHERE id = %s;"
+        print(f"Executing update: {update_query} with parameters: (status='Order Confirmed', id={order_id})")
+        execute_query(update_query, ('Order Confirmed', order_id))
+        
+        print("Order status updated successfully.")
+        return jsonify({"message": "Order status updated to Order Confirmed"}), 200
+    except Exception as e:
+        print(f"Error occurred: {str(e)}")
+        return jsonify({"error": str(e)}), 500
+
+
+
 # #* Get Order Details [OK]
 # @orders_bp.route('/<int:order_id>', methods=['GET'])  # GET /api/orders/<order_id>
 # @jwt_required()
@@ -130,5 +164,24 @@ def get_order_details(order_id):
 #         order_items = query_db("SELECT * FROM order_items WHERE order_id = %s;", (order_id,))
 #         # return jsonify({"order": order, "order_items": order_items}), 200
 #         return jsonify({"order_items": order_items}), 200
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
+
+# #* Confirm Order Status [OK]
+# @orders_bp.route('/<int:order_id>/confirm', methods=['PUT'])  # PUT /api/orders/<order_id>/confirm
+# @jwt_required()
+# def confirm_order_status(order_id):
+#     user_id = get_jwt_identity()
+#     try:
+#         # Check order for order id and user id
+#         order = query_db("SELECT * FROM orders WHERE id = %s AND user_id = %s;", (order_id, user_id), one=True)
+#         if not order:
+#             return jsonify({"error": "Order not found"}), 404
+        
+#         # Update the order status
+#         update_query = "UPDATE orders SET status = %s WHERE id = %s;"
+#         query_db(update_query, ('Order Confirmed', order_id))
+        
+#         return jsonify({"message": "Order status updated to Order Confirmed"}), 200
 #     except Exception as e:
 #         return jsonify({"error": str(e)}), 500

@@ -26,8 +26,8 @@ const CheckoutPage = () => {
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [orderCreated, setOrderCreated] = useState(false);
-  const [orderItems, setOrderItems] = useState([]);
+  // const [orderCreated, setOrderCreated] = useState(false);
+  // const [orderItems, setOrderItems] = useState([]);
   const navigate = useNavigate();
 
   const updateTotals = (totalAmount) => {
@@ -99,7 +99,11 @@ const CheckoutPage = () => {
         const orderResponse = await getUserOrders();
         console.log("GET ORDER:", orderResponse);
 
-        const orderId = orderResponse[0].id;
+        // Get latest order where status is equal to 'Pending Payment'
+        // const orderId = orderResponse[0].id;
+        const sortedOrders = orderResponse.sort((a, b) => b.id - a.id); // Sort in descending order
+        const latestOrder = sortedOrders[0];
+        const orderId = latestOrder.id;
         console.log("GET ORDER ID:", orderId);
 
         const orderShippingCost = Math.round(
