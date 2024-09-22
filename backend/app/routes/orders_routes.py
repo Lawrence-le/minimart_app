@@ -21,6 +21,7 @@ I need to do this checking before i create an order
 def create_order():
     user_id = get_jwt_identity()
     shipping_address_id = request.json.get('shipping_address_id')
+    shipping_cost = request.json.get('shipping_cost')
 
     # 1. Validate the shipping address. If no shipping address, return an error.
     if not shipping_address_id:
@@ -49,10 +50,10 @@ def create_order():
 
     # 4. Insert a new order into the orders table
     order_query = """
-        INSERT INTO orders (user_id, total, shipping_address_id)
-        VALUES (%s, %s, %s) RETURNING id;
+        INSERT INTO orders (user_id, total, shipping_address_id, shipping_cost)
+        VALUES (%s, %s, %s, %s) RETURNING id;
     """
-    order_id_result = execute_query(order_query, (user_id, total, shipping_address_id), fetch=True)
+    order_id_result = execute_query(order_query, (user_id, total, shipping_address_id, shipping_cost), fetch=True)
     order_id = order_id_result[0] if order_id_result else None
 
     if order_id is None:
@@ -74,11 +75,10 @@ def create_order():
         """
         execute_query(order_item_query, (order_id, item['product_id'], item['quantity'], item['price']))
 
-    # 6. Clear the cart after the order is created
-    execute_query("DELETE FROM carts WHERE user_id = %s;", (user_id,))
+    # # 6. Clear the cart after the order is created
+    # execute_query("DELETE FROM carts WHERE user_id = %s;", (user_id,))
 
     return jsonify({"message": "Order created successfully!", "order_id": order_id}), 201
-
 
 
 
@@ -94,7 +94,6 @@ def get_user_orders():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-
 #* Get Order Details [OK]
 @orders_bp.route('/<int:order_id>', methods=['GET'])  # GET /api/orders/<order_id>
 @jwt_required()
@@ -105,7 +104,31 @@ def get_order_details(order_id):
         if not order:
             return jsonify({"error": "Order not found"}), 404
 
-        order_items = query_db("SELECT * FROM order_items WHERE order_id = %s;", (order_id,))
-        return jsonify({"order": order, "order_items": order_items}), 200
+        query = """
+        SELECT oi.id, oi.order_id, oi.product_id, oi.price, oi.quantity, p.name
+        FROM order_items oi
+        JOIN products p ON oi.product_id = p.id
+        WHERE oi.order_id = %s;
+        """
+        order_items = query_db(query, (order_id,))
+        
+        return jsonify({"order_items": order_items}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+# #* Get Order Details [OK]
+# @orders_bp.route('/<int:order_id>', methods=['GET'])  # GET /api/orders/<order_id>
+# @jwt_required()
+# def get_order_details(order_id):
+#     user_id = get_jwt_identity()
+#     try:
+#         order = query_db("SELECT * FROM orders WHERE id = %s AND user_id = %s;", (order_id, user_id), one=True)
+#         if not order:
+#             return jsonify({"error": "Order not found"}), 404
+
+#         order_items = query_db("SELECT * FROM order_items WHERE order_id = %s;", (order_id,))
+#         # return jsonify({"order": order, "order_items": order_items}), 200
+#         return jsonify({"order_items": order_items}), 200
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500

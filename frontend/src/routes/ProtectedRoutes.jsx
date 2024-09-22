@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import Cart from "../pages/Cart";
 import Profile from "../pages/Profile";
 import Checkout from "../pages/Checkout";
-import Payment from "../components/Payment";
 import Cancel from "../pages/Cancel";
 import Success from "../pages/Success";
 

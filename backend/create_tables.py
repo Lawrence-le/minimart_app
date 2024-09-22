@@ -111,6 +111,7 @@ CREATE TABLE IF NOT EXISTS orders (
     total DECIMAL(10, 2) NOT NULL,
     status VARCHAR(50) NOT NULL DEFAULT 'Pending',
     shipping_address_id INTEGER REFERENCES addresses(id),
+    shipping_cost DECIMAL(10, 2) DEFAULT 0.00,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 """

@@ -2,13 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { Button, Row, Col, Card, Container, Spinner } from "react-bootstrap";
-import { getCartProducts, getCartTotal } from "../services/cartsService";
+import {
+  getCartProducts,
+  getCartTotal,
+  clearCart,
+} from "../services/cartsService";
 import { getAddresses } from "../services/addressesService";
 import CartProductCard from "../components/CartProductCard";
 import AddressForm from "../components/AddressForm";
 import { useCart } from "../context/CartContext";
 import { createOrder } from "../services/ordersService";
-import CheckoutForm from "../components/Payment";
 import { useNavigate } from "react-router-dom";
 import { getOrderDetails, getUserOrders } from "../services/ordersService";
 import { createCheckoutSession } from "../services/paymentService";
@@ -24,6 +27,7 @@ const CheckoutPage = () => {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [orderCreated, setOrderCreated] = useState(false);
+  const [orderItems, setOrderItems] = useState([]);
   const navigate = useNavigate();
 
   const updateTotals = (totalAmount) => {
@@ -85,26 +89,50 @@ const CheckoutPage = () => {
     if (selectedAddressId) {
       const orderData = {
         shipping_address_id: selectedAddressId,
+        shipping_cost: shippingCost,
       };
+
       try {
         // Step 1: Create Order
         await createOrder(orderData);
 
         const orderResponse = await getUserOrders();
-        // const orderId = orderResponse.id;
-        const orderId = orderResponse[0].id;
+        console.log("GET ORDER:", orderResponse);
 
-        console.log("This order's ID: ", orderId);
+        const orderId = orderResponse[0].id;
+        console.log("GET ORDER ID:", orderId);
+
+        const orderShippingCost = Math.round(
+          orderResponse[0].shipping_cost * 100
+        );
+        console.log("GET ORDER SHIPPING COST:", orderShippingCost);
+
+        const totalAmount = Math.round(orderResponse[0].total * 100);
+        console.log("Total Amount:", totalAmount);
 
         // Step 2: Fetch Order Details
         const orderDetails = await getOrderDetails(orderId);
+        console.log("Order Details: ", orderDetails);
+
+        // Prepare the order items for the session
+        const orderItems = orderDetails.order_items.map((item) => ({
+          name: item.name,
+          price: Math.round(parseFloat(item.price) * 100),
+          quantity: item.quantity,
+        }));
+
+        console.log("Order Items:", orderItems);
 
         // Step 3: Create Stripe Checkout Session
         const sessionResponse = await createCheckoutSession({
-          total_amount: orderDetails.order.total * 100,
-          shipping_address: orderDetails.order.shipping_address_id,
+          total_amount: totalAmount,
+          order_items: orderItems,
+          order_id: orderId,
+          shipping_cost: orderShippingCost,
         });
 
+        // Clear the cart before redirecting
+        await clearCart();
         // Step 4: Redirect to Stripe checkout page
         window.location.href = sessionResponse.url;
       } catch (error) {
@@ -114,29 +142,6 @@ const CheckoutPage = () => {
       alert("Please select an address before proceeding to payment.");
     }
   };
-  // const handleProceedToPayment = async () => {
-  //   if (!addresses.length) {
-  //     alert("Please add an address before proceeding to payment.");
-  //     return;
-  //   }
-
-  //   if (selectedAddressId) {
-  //     const orderData = {
-  //       shipping_address_id: selectedAddressId,
-  //     };
-  //     console.log("selected address: ", selectedAddressId);
-  //     try {
-  //       const orderResponse = await createOrder(orderData);
-  //       console.log("Order created successfully:", orderResponse);
-  //       setOrderCreated(true);
-  //       navigate("/payment", { state: { totalOrder, shippingCost } });
-  //     } catch (error) {
-  //       console.error("Error creating order:", error);
-  //     }
-  //   } else {
-  //     alert("Please select an address before proceeding to payment.");
-  //   }
-  // };
 
   if (loading) {
     return (
@@ -245,7 +250,7 @@ const CheckoutPage = () => {
           </Col>
         </Row>
       )}
-      {orderCreated && <CheckoutForm />}
+      {/* {orderCreated && <CheckoutForm />} */}
     </Container>
   );
 };
