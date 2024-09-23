@@ -20,7 +20,7 @@ import {
 } from "../services/addressesService";
 
 const Profile = () => {
-  const { user, login } = useAuth();
+  const { user } = useAuth();
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -52,19 +52,12 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const { user_data } = await getUserProtectedData();
-        console.log(user_data.created_at); // data fetched ok
-        console.log(user_data.first_name); // data fetched ok
-        console.log(user_data.last_name); // data fetched ok
-        console.log("Fetched User Data: ", user_data); // Log the fetched data
-
         setUserData({
           first_name: user_data.first_name,
           last_name: user_data.last_name,
           email: user_data.email,
           created_at: user_data.created_at,
         });
-
-        console.log("User Data State 1: ", userData);
       } catch (error) {
         setError("Failed to fetch user data. " + (error.message || ""));
       } finally {
@@ -74,10 +67,6 @@ const Profile = () => {
 
     fetchUserData();
   }, []);
-
-  useEffect(() => {
-    console.log("User Data State: ", userData); // This will log updated userData
-  }, [userData]);
 
   if (loading) {
     return (
@@ -144,13 +133,6 @@ const Profile = () => {
 
   return (
     <Container className="container" style={{ marginTop: "10rem" }}>
-      {/* <Row className="justify-content-center mb-2">
-        <Col md={8}>
-          <h5>
-            Profile <span className="material-icons">person</span>
-          </h5>
-        </Col>
-      </Row> */}
       <Row className="justify-content-center">
         <Col md={4}>
           <Card className="shadow-sm mb-3">
@@ -176,126 +158,130 @@ const Profile = () => {
             </Card.Body>
           </Card>
         </Col>
-        <Col md={4}>
-          <Card className="mb-3">
-            <Card.Header>
-              <span className="material-icons">home</span>
-            </Card.Header>
-            <Card.Body>
-              {/* <Card.Text></Card.Text> */}
-              <ListGroup>
-                {!addresses ? (
-                  <ListGroup.Item className="text-center">
-                    No addresses found. Please add an address.
-                  </ListGroup.Item>
-                ) : (
-                  addresses.map((address) => (
-                    <ListGroup.Item
-                      key={address.id}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <Row>
-                        <Col md={10}>
-                          <div>
-                            <strong>{`${address.first_name} ${address.last_name}`}</strong>
-                          </div>
-                          <div>{address.address_line1}</div>
-                          {address.address_line2 && (
-                            <div>{address.address_line2}</div>
-                          )}
-                          <div>{address.postal_code}</div>
-                        </Col>
-                        <Col md={2}>
-                          <Button
-                            variant="link"
-                            onClick={() => handleDelete(address.id)}
-                            style={{ marginRight: "5rem" }}
-                          >
-                            <span
-                              className="material-icons"
-                              style={{ color: "#cd6155 " }}
-                            >
-                              delete
-                            </span>
-                          </Button>
-                        </Col>
-                      </Row>
+
+        {/* Hide address management if the user is an admin */}
+        {user.role !== "admin" && (
+          <Col md={4}>
+            <Card className="mb-3">
+              <Card.Header>
+                <span className="material-icons">home</span>
+              </Card.Header>
+              <Card.Body>
+                <ListGroup>
+                  {!addresses.length ? (
+                    <ListGroup.Item className="text-center">
+                      No addresses found. Please add an address.
                     </ListGroup.Item>
-                  ))
-                )}
-              </ListGroup>
-            </Card.Body>
-          </Card>
-          <Card className="mb-5">
-            <Card.Header>
-              <span className="material-icons">add</span> Address
-            </Card.Header>
-            <Card.Body>
-              <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formFirstName">
-                  <Form.Label>First Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                    className="mb-2"
-                  />
-                </Form.Group>
-                <Form.Group controlId="formLastName">
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                    className="mb-2"
-                  />
-                </Form.Group>
-                <Form.Group controlId="formAddressLine1">
-                  <Form.Label>Address Line 1</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={addressLine1}
-                    onChange={(e) => setAddressLine1(e.target.value)}
-                    required
-                    className="mb-2"
-                  />
-                </Form.Group>
-                <Form.Group controlId="formAddressLine2">
-                  <Form.Label>Address Line 2</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={addressLine2}
-                    onChange={(e) => setAddressLine2(e.target.value)}
-                    className="mb-2"
-                  />
-                </Form.Group>
-                <Form.Group controlId="formPostalCode">
-                  <Form.Label>Postal Code</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={postalCode}
-                    onChange={(e) => setPostalCode(e.target.value)}
-                    required
-                    className="mb-2"
-                  />
-                </Form.Group>
-                <Button
-                  className="button_custom mt-3"
-                  variant="primary"
-                  type="submit"
-                >
-                  Add Address
-                </Button>
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
+                  ) : (
+                    addresses.map((address) => (
+                      <ListGroup.Item
+                        key={address.id}
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <Row>
+                          <Col md={10}>
+                            <div>
+                              <strong>{`${address.first_name} ${address.last_name}`}</strong>
+                            </div>
+                            <div>{address.address_line1}</div>
+                            {address.address_line2 && (
+                              <div>{address.address_line2}</div>
+                            )}
+                            <div>{address.postal_code}</div>
+                          </Col>
+                          <Col md={2}>
+                            <Button
+                              variant="link"
+                              onClick={() => handleDelete(address.id)}
+                              style={{ marginRight: "5rem" }}
+                            >
+                              <span
+                                className="material-icons"
+                                style={{ color: "#cd6155 " }}
+                              >
+                                delete
+                              </span>
+                            </Button>
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+                    ))
+                  )}
+                </ListGroup>
+              </Card.Body>
+            </Card>
+
+            <Card className="mb-5">
+              <Card.Header>
+                <span className="material-icons">add</span> Address
+              </Card.Header>
+              <Card.Body>
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group controlId="formFirstName">
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                      className="mb-2"
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="formLastName">
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                      className="mb-2"
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="formAddressLine1">
+                    <Form.Label>Address Line 1</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={addressLine1}
+                      onChange={(e) => setAddressLine1(e.target.value)}
+                      required
+                      className="mb-2"
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="formAddressLine2">
+                    <Form.Label>Address Line 2</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={addressLine2}
+                      onChange={(e) => setAddressLine2(e.target.value)}
+                      className="mb-2"
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="formPostalCode">
+                    <Form.Label>Postal Code</Form.Label>
+                    <Form.Control
+                      type="text"
+                      value={postalCode}
+                      onChange={(e) => setPostalCode(e.target.value)}
+                      required
+                      className="mb-2"
+                    />
+                  </Form.Group>
+                  <Button
+                    className="button_custom mt-3"
+                    variant="primary"
+                    type="submit"
+                  >
+                    Add Address
+                  </Button>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        )}
       </Row>
     </Container>
   );

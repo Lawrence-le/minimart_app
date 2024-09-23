@@ -34,16 +34,16 @@ const AdminNavbar = () => {
         <Container>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/" className="mx-2">
-              Home
+              <span className="material-icons">home</span>
             </Nav.Link>
             <Nav.Link as={Link} to="/profile" className="mx-2">
-              Reports
+              <span className="material-icons">account_circle</span>{" "}
             </Nav.Link>
             <Nav.Link as={Link} to="/admin/manager" className="mx-2">
-              Manager
+              <span className="material-symbols-outlined">tune</span>{" "}
             </Nav.Link>
-            <Nav.Link as={Link} to="/admin/shipment" className="mx-2">
-              Shipments
+            <Nav.Link as={Link} to="/admin/report" className="mx-2">
+              <span className="material-symbols-outlined">monitoring</span>{" "}
             </Nav.Link>
           </Nav>
           <Nav className="ms-auto">

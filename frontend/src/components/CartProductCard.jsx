@@ -25,7 +25,7 @@ const CartProductCard = ({ product, onRemove, onUpdate, isCheckout }) => {
         <Col md={8} className="ms-2">
           <Card.Body>
             <Card.Text className="mb-3">{product.name}</Card.Text>
-            <Card.Title>
+            <Card.Title style={{ color: "#d81b60" }}>
               <strong>${product.price}</strong>
             </Card.Title>
             {!isCheckout && (

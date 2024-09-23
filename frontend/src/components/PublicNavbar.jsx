@@ -91,17 +91,31 @@ const PublicNavbar = () => {
           <Row className="w-100 align-items-center">
             <Col xs="auto">
               <Nav>
-                <Nav.Link as={Link} to="/" className="mx-2">
-                  Home
+                <Nav.Link
+                  as={Link}
+                  to="/"
+                  className="mx-2"
+                  style={{ color: "white" }}
+                >
+                  <span className="material-icons">home</span>
                 </Nav.Link>
-                <Nav.Link as={Link} to="/store" className="mx-2">
-                  Store
+                <Nav.Link
+                  as={Link}
+                  to="/store"
+                  className="mx-2"
+                  style={{ color: "white" }}
+                >
+                  <span className="material-icons">store</span>
                 </Nav.Link>
               </Nav>
             </Col>
             <Col xs="auto" className="ms-auto">
               <Nav>
-                <Nav.Link className="mx-2" onClick={toggleModal}>
+                <Nav.Link
+                  className="mx-2"
+                  style={{ color: "white" }}
+                  onClick={toggleModal}
+                >
                   <span className="material-icons">login</span> Login/Register
                 </Nav.Link>
               </Nav>
