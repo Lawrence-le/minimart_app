@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_bcrypt import Bcrypt
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
 from ..utils import revoke_token
-from ..db import execute_query
+from ..db import execute_query, query_db
 
 user_bp = Blueprint('user', __name__)
 bcrypt = Bcrypt()
@@ -78,19 +78,19 @@ def logout_user():
 def get_user_protected_data():
     current_user_id = get_jwt_identity()
     
-    # Query to select specific columns except for password_hash or other sensitive data
     query = """
         SELECT id, username, email, first_name, last_name, is_admin, created_at
         FROM users
         WHERE id = %s
     """
     
-    user = execute_query(query, (current_user_id,), fetch=True)
+    # user = execute_query(query, (current_user_id,), fetch=True)
+    user = query_db(query, (current_user_id,), one=True)
+
     
     if not user:
         return jsonify({"msg": "Access forbidden"}), 403
 
-    # Print the fetched user data in the backend for debugging
     print(f"Fetched User Data: {user}")
 
     return jsonify({"user_data": user})

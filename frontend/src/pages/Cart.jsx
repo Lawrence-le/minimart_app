@@ -122,7 +122,7 @@ const Cart = () => {
         </div>
       ) : (
         <Row className="justify-content-center">
-          <Col md={6} className="mb-4">
+          <Col md={6} className="mb-3">
             {cartItems.map((item) => (
               <CartProductCard
                 key={item.product_id}
@@ -133,7 +133,7 @@ const Cart = () => {
             ))}
           </Col>
           <Col md={4}>
-            <Card className="mb-4">
+            <Card className="mb-3">
               <Card.Body>
                 <h5 className="text-center">Order Summary</h5>
                 <hr />

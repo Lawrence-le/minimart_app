@@ -37,7 +37,6 @@ const Profile = () => {
       try {
         const addressList = await getAddresses();
         setAddresses(addressList);
-        console.log("Address: ", addresses);
       } catch (error) {
         console.error("Error fetching addresses:", error);
       } finally {
@@ -52,19 +51,12 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const { user_data } = await getUserProtectedData();
-        console.log(user_data.created_at); // data fetched ok
-        console.log(user_data.first_name); // data fetched ok
-        console.log(user_data.last_name); // data fetched ok
-        console.log("Fetched User Data: ", user_data); // Log the fetched data
-
         setUserData({
           first_name: user_data.first_name,
           last_name: user_data.last_name,
           email: user_data.email,
           created_at: user_data.created_at,
         });
-
-        console.log("User Data State 1: ", userData);
       } catch (error) {
         setError("Failed to fetch user data. " + (error.message || ""));
       } finally {
@@ -74,31 +66,6 @@ const Profile = () => {
 
     fetchUserData();
   }, []);
-
-  useEffect(() => {
-    console.log("User Data State: ", userData); // This will log updated userData
-  }, [userData]);
-
-  if (loading) {
-    return (
-      <Container
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "80vh" }}
-      >
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      </Container>
-    );
-  }
-
-  if (error) {
-    return (
-      <Container className="container">
-        <Alert variant="danger">{error}</Alert>
-      </Container>
-    );
-  }
 
   const clearForm = () => {
     setFirstName("");
@@ -142,21 +109,38 @@ const Profile = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <Container
+        className="d-flex justify-content-center align-items-center"
+        style={{ height: "80vh" }}
+      >
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container className="container">
+        <Alert variant="danger">{error}</Alert>
+      </Container>
+    );
+  }
+
   return (
     <Container className="container" style={{ marginTop: "10rem" }}>
-      {/* <Row className="justify-content-center mb-2">
+      <Row className="justify-content-center mb-2">
         <Col md={8}>
-          <h5>
-            Profile <span className="material-icons">person</span>
-          </h5>
+          <h4>Profile</h4>
         </Col>
-      </Row> */}
+      </Row>
       <Row className="justify-content-center">
         <Col md={4}>
           <Card className="shadow-sm mb-3">
-            <Card.Header>
-              <span className="material-icons">account_circle</span>
-            </Card.Header>
+            <Card.Header>Your Profile</Card.Header>
             <Card.Body>
               <Card.Text>
                 <strong>Name:</strong> {userData.first_name}{" "}
@@ -166,7 +150,7 @@ const Profile = () => {
                 <strong>Email Address:</strong> {userData.email}
               </Card.Text>
               <Card.Text>
-                <strong>Account Created on:</strong>{" "}
+                <strong>Account Created:</strong>{" "}
                 {userData.created_at &&
                   format(
                     new Date(Date.parse(userData.created_at)),
@@ -178,15 +162,12 @@ const Profile = () => {
         </Col>
         <Col md={4}>
           <Card className="mb-3">
-            <Card.Header>
-              <span className="material-icons">home</span>
-            </Card.Header>
+            <Card.Header>Your Addresses</Card.Header>
             <Card.Body>
-              {/* <Card.Text></Card.Text> */}
               <ListGroup>
-                {!addresses ? (
+                {addresses.length === 0 ? (
                   <ListGroup.Item className="text-center">
-                    No addresses found. Please add an address.
+                    <strong>No addresses found. Please add an address.</strong>
                   </ListGroup.Item>
                 ) : (
                   addresses.map((address) => (
@@ -231,9 +212,7 @@ const Profile = () => {
             </Card.Body>
           </Card>
           <Card className="mb-5">
-            <Card.Header>
-              <span className="material-icons">add</span> Address
-            </Card.Header>
+            <Card.Header>Add New Address</Card.Header>
             <Card.Body>
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formFirstName">
