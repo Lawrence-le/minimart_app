@@ -107,7 +107,7 @@ const Home = () => {
     <Container>
       <header className="text-center mb-4" style={{ marginTop: "10rem" }}>
         {/* <h1>Welcome to My Page</h1> */}
-        <h3 style={{ color: "#2471a3 " }}>
+        <h3 style={{ color: "#d81b60 ", fontWeight: "bold" }}>
           Your Friendly Neighbourhood Minimart
         </h3>
       </header>

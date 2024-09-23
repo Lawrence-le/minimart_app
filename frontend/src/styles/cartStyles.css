@@ -12,13 +12,14 @@
 .cart-product-card {
   display: flex;
   justify-items: center;
+  background-color: white;
 }
 
 .cart-product-card img {
   width: auto;
   /* height: auto; */
   object-fit: cover;
-  max-height: 80px;
+  max-height: 90px;
 }
 
 .checkout-container {

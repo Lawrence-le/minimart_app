@@ -15,6 +15,8 @@ import "./styles/globalStyles.css";
 // import PublicHeader from "./components/PublicHeader";
 // import Profile from "./pages/Profile";
 import Home from "./pages/Home";
+import SearchResult from "./pages/SearchResults";
+import Store from "./pages/Store";
 import { getToken } from "./utils/tokenUtils";
 
 const App = () => {
@@ -56,8 +58,8 @@ const App = () => {
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/store" element={<PublicRoutes />} />
-        <Route path="/search" element={<PublicRoutes />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/search" element={<SearchResult />} />
         <Route path="/product" element={<PublicRoutes />} />
         <Route path="/login" element={<PublicRoutes />} />
         <Route path="/register" element={<PublicRoutes />} />

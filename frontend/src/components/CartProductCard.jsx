@@ -22,14 +22,12 @@ const CartProductCard = ({ product, onRemove, onUpdate, isCheckout }) => {
             alt={product.name}
           />
         </Col>
-        <Col md={9} className="ms-2">
+        <Col md={8} className="ms-2">
           <Card.Body>
-            <div>
-              <Card.Text className="mb-3">{product.name}</Card.Text>
-              <Card.Title>
-                <strong>${product.price}</strong>
-              </Card.Title>
-            </div>
+            <Card.Text className="mb-3">{product.name}</Card.Text>
+            <Card.Title>
+              <strong>${product.price}</strong>
+            </Card.Title>
             {!isCheckout && (
               <Card.Text>
                 Quantity:

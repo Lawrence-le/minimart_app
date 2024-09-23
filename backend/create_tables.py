@@ -150,7 +150,6 @@ tables = [
     create_categories_table, 
     create_products_table, 
     create_cart_table, 
-    create_cart_items_table,
     create_addresses_table,
     create_orders_table,     
     create_order_items_table, 

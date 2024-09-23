@@ -48,21 +48,24 @@ def get_product(product_id):
 #* Search products by name or description
 @products_bp.route('/search', methods=['GET'])
 def search_products():
-    search_query = request.args.get('q', '')  # Get the 'q' query parameter
-
-    if not search_query:
-        return jsonify({"error": "No search query provided"}), 400
+    search_query = request.args.get('q', '')  
 
     try:
-        # Use ILIKE for case-insensitive search
-        query = """
-        SELECT id, name, description, price, stock, category_id, image_url, created_at
-        FROM products
-        WHERE name ILIKE %s OR description ILIKE %s;
-        """
-        # Add wildcard % to the search term for partial matching
-        search_term = f"%{search_query}%"
-        products = query_db(query, (search_term, search_term))
+        if search_query:
+            query = """
+            SELECT id, name, description, price, stock, category_id, image_url, created_at
+            FROM products
+            WHERE name ILIKE %s OR description ILIKE %s;
+            """
+            search_term = f"%{search_query}%"
+            products = query_db(query, (search_term, search_term))
+
+        else:
+            query = """
+            SELECT id, name, description, price, stock, category_id, image_url, created_at
+            FROM products;
+            """
+            products = query_db(query)
 
         return jsonify({"products": products}), 200
 

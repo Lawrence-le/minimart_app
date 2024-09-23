@@ -1,3 +1,5 @@
+// frontend\src\components\ProductCard.jsx
+
 import { Link } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,7 +26,7 @@ const ProductCard = ({ product }) => {
           className="product-image"
         />
       </Link>
-      <Card.Body className="text-start">
+      <Card.Body className="text-start" style={{ backgroundColor: "#f8f9fa" }}>
         <Card.Text className="text-start product-name">
           {product.name}
         </Card.Text>

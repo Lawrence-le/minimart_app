@@ -155,7 +155,6 @@ const Cart = () => {
                   </p>
                 </div>
                 <Button
-                  variant="info"
                   className="button_custom mt-3"
                   onClick={handleProceedToCheckout}
                 >

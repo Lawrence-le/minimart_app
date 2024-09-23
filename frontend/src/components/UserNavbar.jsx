@@ -26,25 +26,55 @@ const UserNavbar = () => {
       <Navbar className="custom-navbar" fixed="top">
         <Container>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/" className="mx-2">
+            <Nav.Link
+              as={Link}
+              to="/"
+              className="mx-2 "
+              style={{ color: "white" }}
+            >
               <span className="material-icons">home</span>
             </Nav.Link>
-            <Nav.Link as={Link} to="/store" className="mx-2">
+            <Nav.Link
+              as={Link}
+              to="/store"
+              className="mx-2"
+              style={{ color: "white" }}
+            >
               <span className="material-icons">store</span>
             </Nav.Link>
           </Nav>
           <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/orders" className="mx-2">
+            <Nav.Link
+              as={Link}
+              to="/orders"
+              className="mx-2"
+              style={{ color: "white" }}
+            >
               <span className="material-icons">view_list</span>
             </Nav.Link>
-            <Nav.Link as={Link} to="/cart" className="mx-2">
+            <Nav.Link
+              as={Link}
+              to="/cart"
+              className="mx-2"
+              style={{ color: "white" }}
+            >
               {/* <span className="material-icons">shopping_cart</span> */}
               <span className="material-symbols-outlined">shopping_cart</span>
             </Nav.Link>
-            <Nav.Link as={Link} to="/profile" className="mx-2">
+            <Nav.Link
+              as={Link}
+              to="/profile"
+              className="mx-2"
+              style={{ color: "white" }}
+            >
               <span className="material-icons">account_circle</span>
             </Nav.Link>
-            <Nav.Link as="button" onClick={handleLogout} className="mx-2">
+            <Nav.Link
+              as="button"
+              onClick={handleLogout}
+              className="mx-2"
+              style={{ color: "white" }}
+            >
               <span className="material-icons">logout</span>
             </Nav.Link>
           </Nav>
