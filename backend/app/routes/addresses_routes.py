@@ -107,3 +107,27 @@ def get_addresses():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+
+#* Get Shipping Address for Orders
+@addresses_bp.route('/shipping/<int:address_id>', methods=['GET'])  # GET /api/addresses/shipping/<address_id>
+@jwt_required()
+def get_shipping_address(address_id):
+    try:
+        user_id = get_jwt_identity()
+        query = "SELECT first_name, last_name, address_line1, address_line2, postal_code FROM addresses WHERE id = %s AND user_id = %s;"
+        address = query_db(query, (address_id, user_id), one=True)
+
+        if not address:
+            return jsonify({"error": "Address not found"}), 404
+
+        # address_text_block = f"{address['first_name']} {address['last_name']}\n{address['address_line1']}\n{address.get('address_line2', '')}\n{address['postal_code']}"
+        address_single_line = f"{address['first_name']} {address['last_name']}, {address['address_line1']}, {address.get('address_line2', '')}, {address['postal_code']}"
+
+        return jsonify({
+            # "address_text_block": address_text_block.strip(),
+            "address_single_line": address_single_line.strip()
+        }), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

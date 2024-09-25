@@ -7,7 +7,7 @@ import {
   getCartTotal,
   clearCart,
 } from "../services/cartsService";
-import { getAddresses } from "../services/addressesService";
+import { getAddresses, getShippingAddress } from "../services/addressesService";
 import CartProductCard from "../components/CartProductCard";
 import AddressForm from "../components/AddressForm";
 import { useCart } from "../context/CartContext";
@@ -23,6 +23,7 @@ const CheckoutPage = () => {
   const [totalCart, setTotalCart] = useState(0);
   const [totalOrder, setTotalOrder] = useState(0);
   const { shippingCost } = useCart();
+  const [shippingAddress, setShippingAddress] = useState("");
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -52,6 +53,7 @@ const CheckoutPage = () => {
     const fetchAddresses = async () => {
       try {
         const addressList = await getAddresses();
+        console.log("addressList:", addressList);
         setAddresses(addressList);
       } catch (error) {
         console.error("Error fetching addresses:", error);
@@ -87,20 +89,24 @@ const CheckoutPage = () => {
     }
 
     if (selectedAddressId) {
-      const orderData = {
-        shipping_address_id: selectedAddressId,
-        shipping_cost: shippingCost,
-      };
-
       try {
-        // Step 1: Create Order
+        // Step 1: Fetch the Shipping Address
+        console.log("selectedAddressId:", selectedAddressId);
+        const shippingAddressData = await getShippingAddress(selectedAddressId);
+        console.log("shippingAddressData:", shippingAddressData);
+        const shippingAddress = shippingAddressData.address_single_line;
+
+        const orderData = {
+          shipping_cost: shippingCost,
+          shipping_address: shippingAddress,
+        };
+
+        // Step 2: Create Order
         await createOrder(orderData);
 
         const orderResponse = await getUserOrders();
         console.log("GET ORDER:", orderResponse);
 
-        // Get latest order where status is equal to 'Pending Payment'
-        // const orderId = orderResponse[0].id;
         const sortedOrders = orderResponse.sort((a, b) => b.id - a.id); // Sort in descending order
         const latestOrder = sortedOrders[0];
         const orderId = latestOrder.id;
@@ -114,7 +120,7 @@ const CheckoutPage = () => {
         const totalAmount = Math.round(orderResponse[0].total * 100);
         console.log("Total Amount:", totalAmount);
 
-        // Step 2: Fetch Order Details
+        // Step 3: Fetch Order Details
         const orderDetails = await getOrderDetails(orderId);
         console.log("Order Details: ", orderDetails);
 
@@ -127,7 +133,7 @@ const CheckoutPage = () => {
 
         console.log("Order Items:", orderItems);
 
-        // Step 3: Create Stripe Checkout Session
+        // Step 4: Create Stripe Checkout Session
         const sessionResponse = await createCheckoutSession({
           total_amount: totalAmount,
           order_items: orderItems,
@@ -137,7 +143,7 @@ const CheckoutPage = () => {
 
         // Clear the cart before redirecting
         await clearCart();
-        // Step 4: Redirect to Stripe checkout page
+        // Step 5: Redirect to Stripe checkout page
         window.location.href = sessionResponse.url;
       } catch (error) {
         console.error("Error during payment process:", error);

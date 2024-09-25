@@ -54,6 +54,7 @@ export const filterProductsByCategory = async (categoryId) => {
 // Add a new product
 export const addProduct = async (productData) => {
   try {
+    const token = getToken();
     const response = await axios.post(API_URL, productData, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -83,6 +84,7 @@ export const updateProduct = async (productId, productData) => {
 // Delete a product
 export const deleteProduct = async (productId) => {
   try {
+    const token = getToken();
     const response = await axios.delete(`${API_URL}/${productId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -101,6 +103,7 @@ export const uploadProductImage = async (file) => {
   formData.append("file", file);
 
   try {
+    const token = getToken();
     const response = await axios.post(
       // "http://localhost:5000/api/products/upload_image",
       // formData,

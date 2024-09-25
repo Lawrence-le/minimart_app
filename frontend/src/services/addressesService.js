@@ -73,3 +73,20 @@ export const getAddresses = async () => {
     throw error.message;
   }
 };
+
+// Fetch shipping address by address ID
+export const getShippingAddress = async (addressId) => {
+  try {
+    const token = getToken();
+    const response = await axios.get(`${API_URL}/shipping/${addressId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching shipping address: ", error);
+    throw error;
+  }
+};

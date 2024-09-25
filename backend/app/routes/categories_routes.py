@@ -66,9 +66,9 @@ def add_category():
         data = request.json
         name = data.get('name')
 
-        # Check if categeory name is present during entry
-        if not name:
-            return jsonify({"error": "Category name is required"}), 400
+        # # Check if categeory name is present during entry
+        # if not name:
+        #     return jsonify({"error": "Category name is required"}), 400
 
         # Check for Existing Category
         query = "SELECT * FROM categories WHERE name = %s;"

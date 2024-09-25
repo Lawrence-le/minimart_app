@@ -3,7 +3,6 @@ import { apiUrl } from "./apiUrl";
 import { getToken } from "../utils/tokenUtils";
 
 const API_URL = `${apiUrl}/api/categories`;
-const token = getToken();
 
 // Get all categories
 export const getCategories = async () => {
@@ -30,6 +29,7 @@ export const getCategory = async (categoryId) => {
 // Add a new category
 export const addCategory = async (categoryData) => {
   try {
+    const token = getToken();
     const response = await axios.post(API_URL, categoryData, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -54,6 +54,7 @@ export const updateCategory = async (categoryId, categoryData) => {
 // Delete a category
 export const deleteCategory = async (categoryId) => {
   try {
+    const token = getToken();
     const response = await axios.delete(`${API_URL}/${categoryId}`, {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -11,6 +11,7 @@ import AdminRoutes from "./routes/AdminRoutes";
 import PublicNavbar from "./components/PublicNavbar";
 import UserNavbar from "./components/UserNavbar";
 import AdminNavbar from "./components/AdminNavbar";
+import Footer from "./components/Footer";
 import "./styles/globalStyles.css";
 // import PublicHeader from "./components/PublicHeader";
 // import Profile from "./pages/Profile";
@@ -76,6 +77,7 @@ const App = () => {
         {/* Admin routes */}
         <Route path="/admin/*" element={<AdminRoutes />} />
       </Routes>
+      <Footer /> {/* Place the Footer component here */}
     </>
   );
 };

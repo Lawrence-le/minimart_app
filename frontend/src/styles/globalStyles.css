@@ -213,3 +213,8 @@ body {
   color: white;
   border: none;
 }
+.order-status {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

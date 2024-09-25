@@ -20,12 +20,14 @@ I need to do this checking before i create an order
 @jwt_required()
 def create_order():
     user_id = get_jwt_identity()
-    shipping_address_id = request.json.get('shipping_address_id')
+    # shipping_address_id = request.json.get('shipping_address_id')
     shipping_cost = request.json.get('shipping_cost')
+    shipping_address = request.json.get('shipping_address')
 
-    # 1. Validate the shipping address. If no shipping address, return an error.
-    if not shipping_address_id:
-        return jsonify({"error": "Shipping address ID is required"}), 400
+    # # 1. Validate the shipping address. If no shipping address, return an error.
+    # if not shipping_address_id:
+    #     print({"error": "Shipping address ID is required"})
+    #     return jsonify({"error": "Shipping address ID is required"}), 400
 
     # 2. Check if the cart has items
     cart_items_query = """
@@ -50,10 +52,10 @@ def create_order():
 
     # 4. Insert a new order into the orders table
     order_query = """
-        INSERT INTO orders (user_id, total, shipping_address_id, shipping_cost)
+        INSERT INTO orders (user_id, total, shipping_cost, shipping_address)
         VALUES (%s, %s, %s, %s) RETURNING id;
     """
-    order_id_result = execute_query(order_query, (user_id, total, shipping_address_id, shipping_cost), fetch=True)
+    order_id_result = execute_query(order_query, (user_id, total, shipping_cost, shipping_address), fetch=True)
     order_id = order_id_result[0] if order_id_result else None
 
     if order_id is None:
@@ -105,7 +107,7 @@ def get_order_details(order_id):
             return jsonify({"error": "Order not found"}), 404
 
         query = """
-        SELECT oi.id, oi.order_id, oi.product_id, oi.price, oi.quantity, p.name
+        SELECT oi.id, oi.order_id, oi.product_id, oi.price, oi.quantity, p.name, p.image_url
         FROM order_items oi
         JOIN products p ON oi.product_id = p.id
         WHERE oi.order_id = %s;

@@ -32,19 +32,19 @@ const Profile = () => {
   const [addressLine2, setAddressLine2] = useState("");
   const [postalCode, setPostalCode] = useState("");
 
-  useEffect(() => {
-    const fetchAddresses = async () => {
-      try {
-        const addressList = await getAddresses();
-        setAddresses(addressList);
-        console.log("Address: ", addresses);
-      } catch (error) {
-        console.error("Error fetching addresses:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchAddresses = async () => {
+    try {
+      const addressList = await getAddresses();
+      setAddresses(addressList);
+      console.log("Fetched Addresses: ", addressList);
+    } catch (error) {
+      console.error("Error fetching addresses:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchAddresses();
   }, []);
 
@@ -109,10 +109,7 @@ const Profile = () => {
 
     try {
       await addAddress(addressData);
-      setAddresses((prevAddresses) => [
-        ...prevAddresses,
-        { ...addressData, id: Date.now() },
-      ]);
+      await fetchAddresses();
       clearForm();
     } catch (error) {
       console.error("Error submitting address:", error);
@@ -168,7 +165,7 @@ const Profile = () => {
               </Card.Header>
               <Card.Body>
                 <ListGroup>
-                  {!addresses.length ? (
+                  {!addresses ? (
                     <ListGroup.Item className="text-center">
                       No addresses found. Please add an address.
                     </ListGroup.Item>
