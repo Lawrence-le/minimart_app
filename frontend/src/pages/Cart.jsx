@@ -90,7 +90,7 @@ const Cart = () => {
 
   if (loading) {
     return (
-      <Container className="cart-container mt-4">
+      <Container className="mt-4">
         <Row className="justify-content-center mb-2">
           <Col md={10}>
             <h4>Your Cart</h4>

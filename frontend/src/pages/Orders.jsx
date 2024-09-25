@@ -122,6 +122,8 @@ const OrdersPage = () => {
                     {order.status === "Pending Payment" && (
                       <Button
                         variant="info"
+                        className="button_custom mb-3"
+                        size="sm"
                         onClick={() => handleMakePayment(order)}
                       >
                         Make Payment

@@ -25,12 +25,14 @@ const CartProductCard = ({ product, onRemove, onUpdate, isCheckout }) => {
         <Col md={8} className="ms-2">
           <Card.Body>
             <Card.Text className="mb-3">{product.name}</Card.Text>
-            <Card.Title style={{ color: "#d81b60" }}>
+            <Card.Title>
               <strong>${product.price}</strong>
             </Card.Title>
-            {!isCheckout && (
-              <Card.Text>
-                Quantity:
+            <Card.Text>
+              Qty:
+              {isCheckout ? (
+                <span> {product.quantity}</span>
+              ) : (
                 <input
                   type="number"
                   min="1"
@@ -40,11 +42,13 @@ const CartProductCard = ({ product, onRemove, onUpdate, isCheckout }) => {
                   }
                   style={{ width: "60px", marginLeft: "5px" }}
                 />
+              )}
+              {!isCheckout && (
                 <Button variant="link" className="ms-4" onClick={handleRemove}>
                   Remove
                 </Button>
-              </Card.Text>
-            )}
+              )}
+            </Card.Text>
           </Card.Body>
         </Col>
       </Row>

@@ -26,8 +26,7 @@ body {
   margin: 0;
   padding: 0;
 
-  /* background-color: yellow;
-  background-color: #f4f4f4; */
+  background-color: #fdf2e9;
 
   /* font-family: "Source Sans 3", sans-serif;
   font-optical-sizing: auto;
@@ -74,8 +73,9 @@ h2 {
 }
 
 .custom-navbar {
-  background-color: #65c8d0;
-  background-color: #d81b60;
+  /* background-color: #65c8d0;
+  background-color: #ec407a; */
+  background-color: #ff8a65;
   color: white;
 }
 .custom-navbar-admin {
@@ -98,7 +98,7 @@ h2 {
 
 .product-card img {
   width: 100%;
-  height: auto;
+  height: 150px;
   object-fit: contain;
   max-height: 200px;
   padding: 1rem;
@@ -125,10 +125,13 @@ h2 {
 }
 
 .button_custom {
-  background-color: #7d9fb2;
+  /* background-color: #7d9fb2;
   background-color: #65c8d0;
-  background-color: #d81b60;
+  background-color: #f48fb1; */
+  background-color: #ff8a65;
+  color: #455a64;
   color: white;
+  font-weight: 500;
   border: none;
   /* height: */
 }
@@ -206,12 +209,6 @@ h2 {
   padding-top: 5rem;
 } */
 
-.search-bar-navbar {
-  background-color: #f8f9fa;
-  /* background-color: #607d8b; */
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
-  padding-bottom: 15px;
-}
 .card-element {
   height: auto;
   padding: 10px;
@@ -221,7 +218,7 @@ h2 {
 }
 
 .search-button {
-  background-color: #d81b60;
+  background-color: #ec407a;
   color: white;
   border: none;
 }
@@ -247,16 +244,40 @@ h2 {
 }
 
 .custom-pagination .page-link {
-  background-color: #d81b60; /* Custom background color */
+  background-color: #808b96; /* Custom background color */
   color: white; /* Custom text color */
 }
 
 .custom-pagination .page-link:hover {
-  background-color: #c0164e; /* Darker background on hover */
+  background-color: #ff8a65; /* Darker background on hover */
 }
 
 .custom-pagination .page-item.active .page-link {
-  background-color: #a51a45; /* Active item background */
+  background-color: #455a64; /* Active item background */
   color: white; /* Active item text color */
   border: none;
+}
+
+.search-bar-navbar {
+  background-color: #f8f9fa;
+  /* background-color: #607d8b; */
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  /* padding-bottom: 10px; */
+  margin-top: 3.6rem;
+  /* z-index: 1000; */
+}
+
+.logo_section {
+  /* top: 3rem; */
+  /* background-color: #f8f9fa; */
+  /* background-color: #607d8b; */
+  /* padding-bottom: 15px; */
+  width: 100%;
+  height: 10rem;
+  /* display: flex; */
+  background-image: url("../assets/uncle_thomas_minimart_logo.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* margin-top: 8.8rem; */
 }

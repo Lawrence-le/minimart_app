@@ -6,9 +6,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/globalStyles.css";
 import { getCategory } from "../services/categoriesService";
 import { filterProductsByCategory } from "../services/productsService";
+import LogoSection from "../components/LogoSection";
 
 const Home = () => {
-  // State to hold products and titles
   const [category1Products, setCategory1Products] = useState([]);
   const [category2Products, setCategory2Products] = useState([]);
   const [category3Products, setCategory3Products] = useState([]);
@@ -16,7 +16,6 @@ const Home = () => {
   const [category2Title, setCategory2Title] = useState("Loading...");
   const [category3Title, setCategory3Title] = useState("Loading...");
 
-  // Pagination states
   const [category1Page, setCategory1Page] = useState(1);
   const [category2Page, setCategory2Page] = useState(1);
   const [category3Page, setCategory3Page] = useState(1);
@@ -90,7 +89,7 @@ const Home = () => {
     }
 
     return (
-      <section className="text-center category-section mb-4">
+      <section className="text-center category-section mb-2">
         <h4 className="mb-3 text-start fw-bold">{title}</h4>
         <Row className="justify-content-md-left">
           {Array.isArray(selectedProducts) && selectedProducts.length === 0 ? (
@@ -104,7 +103,7 @@ const Home = () => {
                 md={4}
                 lg={3}
                 xl={2}
-                className="mb-2"
+                className="mb-1"
               >
                 <ProductCard product={product} />
               </Col>
@@ -112,9 +111,11 @@ const Home = () => {
           )}
         </Row>
         <Link to="/store">
-          <Button className="button_custom mt-4">View More Products</Button>
+          <Button className="button_custom mt-3" size="sm">
+            View More Products
+          </Button>
         </Link>
-        <Pagination className="custom-pagination mt-4 justify-content-center">
+        <Pagination className="custom-pagination mt- justify-content-center">
           {items}
         </Pagination>
       </section>
@@ -123,9 +124,13 @@ const Home = () => {
 
   return (
     <Container>
-      <header className="text-center mb-4" style={{ marginTop: "10rem" }}>
-        <h3 style={{ color: "#d81b60 ", fontWeight: "bold" }}>
-          Your Friendly Neighbourhood Minimart
+      <div style={{ marginTop: "8.8rem" }}>
+        <LogoSection />
+      </div>
+      <header className="text-center">
+        <h3 style={{ fontSize: "1.2em", color: "#34495e ", fontWeight: "600" }}>
+          {/* Your Friendly Neighbourhood Minimart */}
+          YOUR FRIENDLY NEIGHBOURHOOD MINIMART
         </h3>
       </header>
 

@@ -5,6 +5,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginModal from "./LoginModal";
 import SearchNavBar from "./SearchNavbar";
+import LogoSection from "./LogoSection";
 
 const PublicNavbar = () => {
   const [showModal, setShowModal] = useState(false);

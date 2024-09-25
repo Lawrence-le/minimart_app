@@ -38,11 +38,7 @@ const SearchNavBar = ({ username }) => {
   };
 
   return (
-    <Navbar
-      className="search-bar-navbar px-5 pt-3"
-      fixed="top"
-      style={{ marginTop: "55px" }}
-    >
+    <Navbar className="search-bar-navbar " fixed="top">
       <Container>
         <Row className="justify-content-center w-100 align-items-center">
           <Col md={3}>

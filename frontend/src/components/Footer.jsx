@@ -12,6 +12,7 @@ import {
 } from "./LogoIcons"; // Adjust the import path as necessary
 
 import { Container, Row, Col } from "react-bootstrap";
+import LogoSection from "./LogoSection";
 
 const Footer = () => {
   return (
@@ -19,6 +20,7 @@ const Footer = () => {
       style={{
         padding: "10px",
         backgroundColor: "#f1f1f1",
+        backgroundColor: "#fafafa ",
         marginTop: "5rem",
       }}
     >
@@ -79,16 +81,42 @@ const Footer = () => {
               TikTok
             </div>
           </Col>
+          <Col md={3}>
+            <LogoSection />
+          </Col>
         </Row>
         <Row className="justify-content-center text-center">
-          <hr></hr>
+          {/* <hr></hr> */}
           <div style={{ color: "#2c3e50 ", fontWeight: "300" }}>
             &copy; {new Date().getFullYear()} Uncle Thomas Minimart. All rights
             reserved.
           </div>
-
-          <div style={{ color: "#2c3e50 ", fontWeight: "300" }}>
+          <div
+            className="mb-3"
+            style={{ color: "#2c3e50 ", fontWeight: "300", fontSize: "0.9em" }}
+          >
             Contact us: support@unclethomasminimart.com
+          </div>
+          <hr></hr>
+          <div
+            style={{ color: "#2c3e50 ", fontWeight: "300", fontSize: "0.7em" }}
+          >
+            Designed & Developed by Lawrence Lee
+          </div>
+          <div>
+            <a
+              href="https://www.linkedin.com/in/lawrence-mklee/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: "#0277bd ",
+                fontWeight: "300",
+                fontSize: "0.7em",
+                textDecoration: "none",
+              }}
+            >
+              https://www.linkedin.com/in/lawrence-mklee/
+            </a>
           </div>
         </Row>
       </Container>

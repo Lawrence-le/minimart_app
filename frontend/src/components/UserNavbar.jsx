@@ -4,6 +4,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth } from "../context/AuthContext";
 import SearchNavBar from "../components/SearchNavbar";
+import LogoSection from "./LogoSection";
 import { getUserProtectedData } from "../services/userService";
 import { useEffect, useState } from "react";
 
@@ -101,7 +102,9 @@ const UserNavbar = () => {
           </Nav>
         </Container>
       </Navbar>
+
       <SearchNavBar username={firstName} />
+      {/* <LogoSection /> */}
     </>
   );
 };

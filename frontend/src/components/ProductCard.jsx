@@ -48,13 +48,14 @@ const ProductCard = ({ product }) => {
           <Card.Text className="text-start product-name">
             {product.name}
           </Card.Text>
-          <Card.Title style={{ color: "#d81b60" }}>
+          <Card.Title>
             <strong>${product.price}</strong>
           </Card.Title>
 
           <div className="d-flex justify-content-center">
             <Button
               className="d-flex align-items-center justify-content-center button_custom mt-3"
+              size="sm"
               onClick={() => handleAddToCart(product, 1)}
             >
               Add to cart
