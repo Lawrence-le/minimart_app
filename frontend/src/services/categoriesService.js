@@ -43,8 +43,15 @@ export const addCategory = async (categoryData) => {
 
 // Update an existing category
 export const updateCategory = async (categoryId, categoryData) => {
+  const token = getToken(); // Retrieve the token from storage or context
+
   try {
-    const response = await axios.put(`${API_URL}/${categoryId}`, categoryData);
+    const token = getToken();
+    const response = await axios.put(`${API_URL}/${categoryId}`, categoryData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || "Failed to update category");

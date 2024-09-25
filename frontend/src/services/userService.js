@@ -73,7 +73,7 @@ export const getUserProtectedData = async () => {
       },
     });
 
-    console.log("Protected Data Response:", response.data);
+    // console.log("Protected Data Response:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching protected data:", error);

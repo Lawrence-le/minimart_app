@@ -1,12 +1,9 @@
 // frontend\src\routes\AdminRoutes.jsx
 
 import { Route, Routes } from "react-router-dom";
-import AdminPanel from "../pages/AdminPanel";
-import { useAuth } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
-
-// import CategoryManager from "../pages/CategoryManager";
-// import ProductManager from "../pages/ProductManager";
+import { useAuth } from "../context/AuthContext";
+import AdminPanel from "../pages/AdminPanel";
 import Report from "../pages/Report";
 
 const AdminRoutes = () => {
@@ -17,13 +14,12 @@ const AdminRoutes = () => {
   }
 
   return (
-    <Routes>
-      <Route path="report" element={<Report />} />
-      <Route path="manager" element={<AdminPanel />} />
-      {/* <Route path="categories" element={<CategoryManager />} />
-        <Route path="products" element={<ProductManager />} />
-      </Route> */}
-    </Routes>
+    <div className="admin-routes">
+      <Routes>
+        <Route path="report" element={<Report />} />
+        <Route path="manager" element={<AdminPanel />} />
+      </Routes>
+    </div>
   );
 };
 

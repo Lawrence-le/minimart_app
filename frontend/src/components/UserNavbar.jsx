@@ -4,10 +4,33 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth } from "../context/AuthContext";
 import SearchNavBar from "../components/SearchNavbar";
+import { getUserProtectedData } from "../services/userService";
+import { useEffect, useState } from "react";
 
 const UserNavbar = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
+  const [userData, setUserData] = useState(null);
+  const [error, setError] = useState(null);
+  const [firstName, setFirstName] = useState("");
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const data = await getUserProtectedData();
+        setUserData(data);
+        // console.log("USER DATA: ", data);
+        // console.log("FirstName: ", data.user_data.first_name);
+        setFirstName(data.user_data.first_name);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setError("Failed to fetch user data");
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -22,7 +45,6 @@ const UserNavbar = () => {
 
   return (
     <>
-      {/* Main Navbar */}
       <Navbar className="custom-navbar" fixed="top">
         <Container>
           <Nav className="me-auto">
@@ -58,7 +80,6 @@ const UserNavbar = () => {
               className="mx-2"
               style={{ color: "white" }}
             >
-              {/* <span className="material-icons">shopping_cart</span> */}
               <span className="material-symbols-outlined">shopping_cart</span>
             </Nav.Link>
             <Nav.Link
@@ -80,7 +101,7 @@ const UserNavbar = () => {
           </Nav>
         </Container>
       </Navbar>
-      <SearchNavBar />
+      <SearchNavBar username={firstName} />
     </>
   );
 };

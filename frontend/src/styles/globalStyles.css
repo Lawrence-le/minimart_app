@@ -21,7 +21,7 @@ html {
 body {
   /* display: flex; */
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
   width: 100%;
   margin: 0;
   padding: 0;
@@ -42,6 +42,18 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal; */
+}
+body,
+h1,
+h2 {
+  color: #455a64;
+}
+
+.admin-routes {
+  min-height: calc(
+    100vh - [footer height]
+  ); /* Adjust this based on your footer's height */
+  padding-bottom: [footer height]; /* Space to prevent overlap */
 }
 
 .bar-control {
@@ -213,8 +225,38 @@ body {
   color: white;
   border: none;
 }
+
+.search-button:hover {
+  background-color: #455a64;
+  color: white;
+  border: none;
+}
+
 .order-status {
   margin-top: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
+}
+.custom-pagination {
+  margin-top: 20px;
+  justify-content: center; /* Centers the pagination items */
+}
+
+.custom-pagination .page-item {
+  margin: 0 5px; /* Add some space between the items */
+}
+
+.custom-pagination .page-link {
+  background-color: #d81b60; /* Custom background color */
+  color: white; /* Custom text color */
+}
+
+.custom-pagination .page-link:hover {
+  background-color: #c0164e; /* Darker background on hover */
+}
+
+.custom-pagination .page-item.active .page-link {
+  background-color: #a51a45; /* Active item background */
+  color: white; /* Active item text color */
+  border: none;
 }

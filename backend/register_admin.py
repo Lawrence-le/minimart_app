@@ -54,7 +54,7 @@ def register_admin(username, email, password, first_name, last_name):
 
 if __name__ == "__main__":
     if len(sys.argv) != 5:
-        print("Usage: python create_tables.py <username> <email> <first_name> <last_name>")
+        print("Usage: register_admin.py <username> <email> <first_name> <last_name>")
         sys.exit(1)
 
     username = sys.argv[1]

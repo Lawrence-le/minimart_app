@@ -75,6 +75,12 @@ const Cart = () => {
   };
 
   const handleProceedToCheckout = () => {
+    if (cartItems.length === 0) {
+      alert(
+        "Your cart is empty. Please add items to your cart before proceeding to checkout."
+      );
+      return;
+    }
     navigate("/checkout");
   };
 

@@ -11,7 +11,8 @@ import {
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const SearchNavBar = () => {
+const SearchNavBar = ({ username }) => {
+  // Accept username as a prop
   const [query, setQuery] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -43,8 +44,13 @@ const SearchNavBar = () => {
       style={{ marginTop: "55px" }}
     >
       <Container>
-        <Row className="justify-content-center w-100">
-          <Col md={6}>
+        <Row className="justify-content-center w-100 align-items-center">
+          <Col md={3}>
+            <span style={{ color: "black" }}>
+              Welcome <strong>{username}</strong>
+            </span>
+          </Col>
+          <Col md={4}>
             <Form className="d-flex" onSubmit={handleSearchSubmit}>
               <InputGroup className="mt-1 mb-1">
                 <FormControl
@@ -55,21 +61,10 @@ const SearchNavBar = () => {
                   value={query}
                   onChange={handleInputChange}
                 />
-                {/* {query && (
-                  <Button
-                    variant="outline-secondary"
-                    onClick={handleClearSearch}
-                    className="ms-2"
-                  >
-                    Clear
-                  </Button>
-                )} */}
                 <Button
-                  // variant="secondary"
                   onClick={handleSearchSubmit}
                   className="search-button"
                   id="search-icon"
-                  // style={{ color: "orange" }}
                 >
                   <span className="material-icons">search</span>
                 </Button>
