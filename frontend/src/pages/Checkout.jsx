@@ -83,7 +83,7 @@ const CheckoutPage = () => {
   // }, []);
 
   const handleProceedToPayment = async () => {
-    if (!addresses.length) {
+    if (!addresses) {
       alert("Please add an address before proceeding to payment.");
       return;
     }

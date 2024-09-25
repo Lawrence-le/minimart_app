@@ -101,38 +101,50 @@ const AddressForm = ({ addresses, setAddresses, setSelectedAddressId }) => {
         </Button>
       </Form>
 
-      <p className="mt-4">
-        <strong>Select Shipping Address:</strong>
-      </p>
-      <ListGroup>
-        {addresses.map((address) => (
-          <ListGroup.Item
-            key={address.id}
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              flexDirection: "column",
-            }}
-          >
-            <Form.Check
-              type="radio"
-              label={
-                <>
-                  <div>
-                    <strong>{`${address.first_name} ${address.last_name}`}</strong>
-                  </div>
-                  <div>{address.address_line1}</div>
-                  {address.address_line2 && <div>{address.address_line2}</div>}
-                  <div>{address.postal_code}</div>
-                </>
-              }
-              name="addressSelect"
-              id={`address-${address.id}`}
-              onChange={() => setSelectedAddressId(address.id)}
-            />
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+      {addresses && addresses.length > 0 ? (
+        <>
+          <p className="mt-4">
+            <strong>Select Shipping Address:</strong>
+          </p>
+          <ListGroup>
+            {addresses.map((address) => (
+              <ListGroup.Item
+                key={address.id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  flexDirection: "column",
+                }}
+              >
+                <Form.Check
+                  type="radio"
+                  label={
+                    <>
+                      <div>
+                        <strong>{`${address.first_name} ${address.last_name}`}</strong>
+                      </div>
+                      <div>{address.address_line1}</div>
+                      {address.address_line2 && (
+                        <div>{address.address_line2}</div>
+                      )}
+                      <div>{address.postal_code}</div>
+                    </>
+                  }
+                  name="addressSelect"
+                  id={`address-${address.id}`}
+                  onChange={() => setSelectedAddressId(address.id)}
+                />
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </>
+      ) : (
+        <p className="mt-4">
+          <strong>
+            No addresses available. Please add an address using the form above.
+          </strong>
+        </p>
+      )}
     </div>
   );
 };
