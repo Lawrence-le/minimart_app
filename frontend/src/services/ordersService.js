@@ -40,14 +40,33 @@ export const getOrderDetails = async (orderId) => {
 
 // Confirm order status
 export const confirmOrderStatus = async (orderId) => {
+  const token = getToken();
+
+  try {
+    const response = await axios.put(
+      `${API_URL}/${orderId}/confirm`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+//* Set Status to Shipped [by admin]
+export const updateStatusShipped = async (orderId) => {
   // console.log("Confirming order ID:", orderId);
   const token = getToken();
 
   try {
-    // console.log("TOKEN SUCCESS PAGE: ", token);
     const response = await axios.put(
-      `${API_URL}/${orderId}/confirm`, // Correct URL
-      {}, // Empty body since we're not sending data
+      `${API_URL}/${orderId}/shipped`,
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,

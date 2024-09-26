@@ -77,7 +77,7 @@ const Store = () => {
       </Row>
       <Row className="justify-content-center">
         <Col md={2}>
-          <h5 className="mb-4">Filter by Category</h5>
+          <p className="mb-3">Filter by Category</p>
           <Form>
             {categories.map((category) => (
               <Form.Check

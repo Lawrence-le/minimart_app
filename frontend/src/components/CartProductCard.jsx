@@ -14,21 +14,20 @@ const CartProductCard = ({ product, onRemove, onUpdate, isCheckout }) => {
   return (
     <Card className="cart-product-card mb-2">
       <Row>
-        <Col md={2}>
+        <Col md={3} className="d-flex justify-content-center">
           <Card.Img
             className="ms-2 mt-3"
-            variant="top"
             src={product.image_url}
             alt={product.name}
           />
         </Col>
-        <Col md={8} className="ms-2">
+        <Col md={8}>
           <Card.Body>
-            <Card.Text className="mb-3">{product.name}</Card.Text>
-            <Card.Title>
+            <div>{product.name}</div>
+            <div className="price_text_cart">
               <strong>${product.price}</strong>
-            </Card.Title>
-            <Card.Text>
+            </div>
+            <div>
               Qty:
               {isCheckout ? (
                 <span> {product.quantity}</span>
@@ -40,15 +39,20 @@ const CartProductCard = ({ product, onRemove, onUpdate, isCheckout }) => {
                   onChange={(e) =>
                     handleQuantityChange(parseInt(e.target.value))
                   }
-                  style={{ width: "60px", marginLeft: "5px" }}
+                  style={{ width: "60px", marginLeft: "10px" }}
                 />
               )}
               {!isCheckout && (
-                <Button variant="link" className="ms-4" onClick={handleRemove}>
+                <Button
+                  variant="link"
+                  className="ms-4"
+                  size="sm"
+                  onClick={handleRemove}
+                >
                   Remove
                 </Button>
               )}
-            </Card.Text>
+            </div>
           </Card.Body>
         </Col>
       </Row>

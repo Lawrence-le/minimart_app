@@ -9,16 +9,22 @@
 }
 
 .cart-product-card {
-  display: flex;
-  justify-items: center;
+  /* display: flex; */
+  /* height: 140px; */
+  justify-content: center;
   background-color: white;
 }
 
 .cart-product-card img {
-  width: auto;
-  /* height: auto; */
-  object-fit: cover;
-  max-height: 90px;
+  width: 100%;
+  object-fit: contain;
+  padding: 1px;
+}
+
+@media (max-width: 576px) {
+  .cart-product-card img {
+    width: 50%;
+  }
 }
 
 .checkout-container {

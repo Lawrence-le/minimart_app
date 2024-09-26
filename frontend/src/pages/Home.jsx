@@ -128,7 +128,7 @@ const Home = () => {
         <LogoSection />
       </div>
       <header className="text-center">
-        <h3 style={{ fontSize: "1.2em", color: "#34495e ", fontWeight: "600" }}>
+        <h3 style={{ fontSize: "1.2em", color: "#455a64 ", fontWeight: "600" }}>
           {/* Your Friendly Neighbourhood Minimart */}
           YOUR FRIENDLY NEIGHBOURHOOD MINIMART
         </h3>

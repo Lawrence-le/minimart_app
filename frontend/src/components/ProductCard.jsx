@@ -45,12 +45,10 @@ const ProductCard = ({ product }) => {
           className="text-start"
           style={{ backgroundColor: "#f8f9fa" }}
         >
-          <Card.Text className="text-start product-name">
-            {product.name}
-          </Card.Text>
-          <Card.Title>
+          <div className="text-start product-name">{product.name}</div>
+          <div className="price_text">
             <strong>${product.price}</strong>
-          </Card.Title>
+          </div>
 
           <div className="d-flex justify-content-center">
             <Button

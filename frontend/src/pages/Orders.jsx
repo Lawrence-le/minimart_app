@@ -83,7 +83,10 @@ const OrdersPage = () => {
   };
 
   return (
-    <Container className="mb-4" style={{ marginTop: "10rem" }}>
+    <Container
+      className="mb-4 "
+      style={{ marginTop: "10rem", maxWidth: "1200px" }}
+    >
       <h4>Your Orders</h4>
       {orders.length === 0 ? (
         <p>No orders found.</p>
@@ -91,12 +94,14 @@ const OrdersPage = () => {
         <ListGroup>
           {orders.map((order) => (
             <ListGroup.Item key={order.id}>
-              <Row className="order-status">
-                <p style={getStatusColor(order.status)}>
-                  <strong>Status:</strong> {order.status}
-                </p>
+              <Row className="justify-content-center mb-2 order-status">
+                <Col md={12}>
+                  <p style={getStatusColor(order.status)}>
+                    <strong>Status:</strong> {order.status}
+                  </p>
+                </Col>
               </Row>
-              <Row className="me-2 ms-2 mt-2">
+              <Row className="justify-content-center me-2 ms-2 mt-2">
                 <Col md={6}>
                   <div>
                     <p>

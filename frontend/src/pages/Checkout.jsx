@@ -210,7 +210,7 @@ const CheckoutPage = () => {
         </Row>
       ) : (
         <Row className="justify-content-center">
-          <Col md={6} className="mb-4">
+          <Col md={5} className="mb-4">
             <Card className="mb-4">
               <Card.Body>
                 <AddressForm
@@ -222,7 +222,7 @@ const CheckoutPage = () => {
             </Card>
           </Col>
 
-          <Col md={4}>
+          <Col md={5}>
             {cartItems.map((item) => (
               <CartProductCard
                 key={item.product_id}

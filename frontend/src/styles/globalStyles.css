@@ -76,7 +76,6 @@ h2 {
   /* background-color: #65c8d0;
   background-color: #ec407a; */
   background-color: #ff8a65;
-  color: white;
 }
 .custom-navbar-admin {
   background-color: #d3d3d3;
@@ -90,18 +89,30 @@ h2 {
 .product-card {
   transition: box-shadow 0.3s ease-in-out;
   width: 100%;
-  /* max-width: 300px; */
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  font-size: 0.9em;
+  /* max-width: 300px; */
+  /* display: flex; */
+  /* flex-direction: column; */
+}
+
+.price_text {
+  color: #ff5722;
+  font-weight: 600;
+  font-size: 1.3em;
+}
+.price_text_cart {
+  color: #ff5722;
+  font-weight: 600;
+  font-size: 1.1em;
 }
 
 .product-card img {
   width: 100%;
-  height: 150px;
+  height: 130px;
   object-fit: contain;
   max-height: 200px;
-  padding: 1rem;
+  /* padding: 1rem; */
 }
 
 .product-name {
@@ -125,13 +136,13 @@ h2 {
 }
 
 .button_custom {
-  /* background-color: #7d9fb2;
-  background-color: #65c8d0;
-  background-color: #f48fb1; */
+  background-color: #7d9fb2;
+  /* background-color: #65c8d0; */
+  /* background-color: #f48fb1;  */
   background-color: #ff8a65;
-  color: #455a64;
-  color: white;
-  font-weight: 500;
+  /* color: #455a64; */
+  color: #283747;
+  font-weight: 400;
   border: none;
   /* height: */
 }
