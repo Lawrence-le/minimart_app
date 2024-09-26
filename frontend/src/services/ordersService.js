@@ -58,14 +58,47 @@ export const confirmOrderStatus = async (orderId) => {
   }
 };
 
+//! ADMIN ROUTES /////////////////////////////////////////////////////////////
+
+//* Get All Orders [by admin]
+export const getAllOrders = async () => {
+  const token = getToken();
+
+  try {
+    const response = await axios.get(`${API_URL}/admin/all`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
+//* Get Order Items by Order ID [by admin]
+export const getOrderItemsByOrderId = async (orderId) => {
+  const token = getToken();
+
+  try {
+    const response = await axios.get(`${API_URL}/admin/items/${orderId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error.message;
+  }
+};
+
 //* Set Status to Shipped [by admin]
 export const updateStatusShipped = async (orderId) => {
-  // console.log("Confirming order ID:", orderId);
   const token = getToken();
 
   try {
     const response = await axios.put(
-      `${API_URL}/${orderId}/shipped`,
+      `${API_URL}/admin/shipped/${orderId}`,
       {},
       {
         headers: {

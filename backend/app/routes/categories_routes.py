@@ -26,7 +26,7 @@ def get_categories():
 @categories_bp.route('/<int:category_id>', methods=['GET'])
 def get_category(category_id):
     try:
-        # Fetch a single category by ID
+
         query = "SELECT * FROM categories WHERE id = %s;"
         category = query_db(query, (category_id,) )
         if category:
@@ -42,7 +42,7 @@ def get_category(category_id):
 
 #* Update Categories [OK]
 @categories_bp.route('/<int:category_id>', methods=['PUT'])
-@admin_required  # Protects this route for admin only
+@admin_required  
 
 def update_category(category_id):
     try:
@@ -60,15 +60,15 @@ def update_category(category_id):
 
 #* Add Category [OK]
 @categories_bp.route('', methods=['POST'])
-@admin_required  # Protects this route for admin only
+@admin_required  
 def add_category():
     try:
         data = request.json
         name = data.get('name')
 
-        # # Check if categeory name is present during entry
-        # if not name:
-        #     return jsonify({"error": "Category name is required"}), 400
+        # Check if categeory name is present during entry
+        if not name:
+            return jsonify({"error": "Category name is required"}), 400
 
         # Check for Existing Category
         query = "SELECT * FROM categories WHERE name = %s;"

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { addToCart } from "../services/cartsService";
 import { useAuth } from "../context/AuthContext";
@@ -50,15 +50,28 @@ const ProductCard = ({ product }) => {
             <strong>${product.price}</strong>
           </div>
 
-          <div className="d-flex justify-content-center">
-            <Button
-              className="d-flex align-items-center justify-content-center button_custom mt-3"
-              size="sm"
-              onClick={() => handleAddToCart(product, 1)}
+          {product.stock === 0 ? (
+            <p
+              className="mt-2 d-flex justify-content-center"
+              style={{
+                color: "#FF0033  ",
+                fontWeight: "bold",
+                fontSize: "1.2em",
+              }}
             >
-              Add to cart
-            </Button>
-          </div>
+              Out of stock
+            </p>
+          ) : (
+            <div className="d-flex justify-content-center">
+              <Button
+                className="d-flex align-items-center justify-content-center button_custom mt-3"
+                size="sm"
+                onClick={() => handleAddToCart(product, 1)}
+              >
+                Add to cart
+              </Button>
+            </div>
+          )}
         </Card.Body>
       </Card>
 

@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { apiUrl } from "./apiUrl";
-import { setToken, getToken } from "../utils/tokenUtils";
+import { getToken } from "../utils/tokenUtils";
 
 const USER_API_URL = `${apiUrl}/api/user`;
 // const token = getToken();
@@ -23,7 +23,7 @@ export const registerUser = async (
       first_name,
       last_name,
     });
-    return response.data.user; // Adjust this line to return the user object directly
+    return response.data.user;
   } catch (error) {
     throw error.response?.data || error.message;
   }
@@ -36,7 +36,7 @@ export const loginUser = async (username, password) => {
       username,
       password,
     });
-    return response.data; // Return the entire response data
+    return response.data;
   } catch (error) {
     throw error.response?.data || error.message;
   }
@@ -73,7 +73,6 @@ export const getUserProtectedData = async () => {
       },
     });
 
-    // console.log("Protected Data Response:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching protected data:", error);

@@ -131,9 +131,9 @@ create_order_items_table = """
 CREATE TABLE IF NOT EXISTS order_items (
     id SERIAL PRIMARY KEY,
     order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
-    product_name VARCHAR(100) NOT NULL,  -- Store the product name
-    product_description TEXT,  -- Store the product description
-    product_image_url TEXT,  -- Store the product image URL
+    name VARCHAR(100) NOT NULL,  -- Store the product name
+    description TEXT,  -- Store the product description
+    image_url TEXT,  -- Store the product image URL
     quantity INTEGER NOT NULL,
     price DECIMAL(10, 2) NOT NULL  -- Store the product price at the time of order
 );

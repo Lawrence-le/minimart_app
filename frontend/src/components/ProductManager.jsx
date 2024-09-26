@@ -224,12 +224,6 @@ const ProductManager = () => {
       <Table className="list-font" striped bordered hover>
         <thead>
           <tr>
-            <th style={{ width: "20%" }}>Name</th>
-            <th style={{ width: "25%" }}>Description</th>
-            <th style={{ width: "5%" }}>Price</th>
-            <th style={{ width: "5%" }}>Stock</th>
-            <th style={{ width: "8%" }}>Category</th>
-            <th style={{ width: "8%" }}>Image</th>
             <th
               style={{ width: "12%" }}
               onClick={handleSortByDate}
@@ -237,6 +231,13 @@ const ProductManager = () => {
             >
               Created At {sortOrder === "desc" ? "▼" : "▲"}
             </th>
+            <th style={{ width: "8%" }}>Image</th>
+            <th style={{ width: "20%" }}>Name</th>
+            <th style={{ width: "25%" }}>Description</th>
+            <th style={{ width: "5%" }}>Price</th>
+            <th style={{ width: "5%" }}>Stock</th>
+            <th style={{ width: "8%" }}>Category</th>
+
             <th style={{ width: "14%" }}>Actions</th>
           </tr>
         </thead>
@@ -248,11 +249,7 @@ const ProductManager = () => {
           ) : (
             products.map((product) => (
               <tr key={product.id}>
-                <td>{product.name}</td>
-                <td>{product.description}</td>
-                <td>{product.price}</td>
-                <td>{product.stock}</td>
-                <td>{getCategoryName(product.category_id)}</td>
+                <td>{format(new Date(product.created_at), "dd MMM yyyy")}</td>
                 <td>
                   {product.image_url ? (
                     <img
@@ -264,7 +261,11 @@ const ProductManager = () => {
                     "Image not available"
                   )}
                 </td>
-                <td>{format(new Date(product.created_at), "dd MMM yyyy")}</td>
+                <td>{product.name}</td>
+                <td>{product.description}</td>
+                <td>{product.price}</td>
+                <td>{product.stock}</td>
+                <td>{getCategoryName(product.category_id)}</td>
 
                 <td>
                   <Button

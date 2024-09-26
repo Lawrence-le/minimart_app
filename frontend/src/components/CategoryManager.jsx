@@ -34,6 +34,7 @@ const CategoryManager = () => {
       alert("New category added successfully!");
     } catch (error) {
       console.error("Error adding category:", error.message);
+      alert(error.message);
     }
   };
 

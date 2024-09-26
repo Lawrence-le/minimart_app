@@ -59,12 +59,21 @@ const Product = () => {
           <h4 className="mb-5" style={{ fontWeight: "300" }}>
             {product.description}
           </h4>
-          <h2 className="mb-4" style={{ color: "#d81b60" }}>
+          <h2 className="mb-4 price_text" style={{ fontSize: "2em" }}>
             ${product.price}
           </h2>
-          <Button className="button_custom" onClick={handleAddToCart}>
-            Add to Cart
-          </Button>
+          {product.stock === 0 ? (
+            <h5
+              className="mt-2"
+              style={{ color: "#FF0033  ", fontWeight: "bold" }}
+            >
+              Out of stock
+            </h5>
+          ) : (
+            <Button className="button_custom" onClick={handleAddToCart}>
+              Add to Cart
+            </Button>
+          )}
         </Col>
       </Row>
     </Container>

@@ -33,8 +33,9 @@ const AddressForm = ({ addresses, setAddresses, setSelectedAddressId }) => {
       await addAddress(addressData);
       setAddresses((prevAddresses) => [
         ...prevAddresses,
-        { ...addressData, id: Date.now() },
+        { ...addressData, id: setSelectedAddressId },
       ]);
+
       clearForm();
     } catch (error) {
       console.error("Error submitting address:", error);
