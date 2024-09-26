@@ -225,9 +225,8 @@ const ProductManager = () => {
         <thead>
           <tr>
             <th
-              style={{ width: "12%" }}
+              style={{ width: "12%", cursor: "pointer" }}
               onClick={handleSortByDate}
-              style={{ cursor: "pointer" }}
             >
               Created At {sortOrder === "desc" ? "▼" : "▲"}
             </th>
