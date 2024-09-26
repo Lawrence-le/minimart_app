@@ -292,3 +292,12 @@ h2 {
   background-repeat: no-repeat;
   /* margin-top: 8.8rem; */
 }
+.container-admin {
+  margin-top: 5rem;
+}
+
+.admin-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}

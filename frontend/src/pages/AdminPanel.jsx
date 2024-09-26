@@ -1,6 +1,5 @@
 //frontend\src\pages\AdminPanel.jsx
 import { useState } from "react";
-import "../styles/adminSidebar.css";
 import { Container, Row, Col, Nav } from "react-bootstrap";
 
 import CategoryManager from "../components/CategoryManager";
