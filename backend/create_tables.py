@@ -139,16 +139,16 @@ CREATE TABLE IF NOT EXISTS order_items (
 );
 """
 
-create_payments_table = """
-CREATE TABLE IF NOT EXISTS payments (
-    id SERIAL PRIMARY KEY,
-    order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
-    payment_method VARCHAR(50) NOT NULL,
-    amount DECIMAL(10, 2) NOT NULL,
-    payment_status VARCHAR(50) NOT NULL DEFAULT 'Pending',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-"""
+# create_payments_table = """
+# CREATE TABLE IF NOT EXISTS payments (
+#     id SERIAL PRIMARY KEY,
+#     order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+#     payment_method VARCHAR(50) NOT NULL,
+#     amount DECIMAL(10, 2) NOT NULL,
+#     payment_status VARCHAR(50) NOT NULL DEFAULT 'Pending',
+#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+# );
+# """
 
 create_revoked_tokens_table = """
 CREATE TABLE IF NOT EXISTS revoked_tokens (

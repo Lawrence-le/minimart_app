@@ -74,9 +74,23 @@ const OrdersPage = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case "Pending Payment":
-        return { color: "white", backgroundColor: "#ef5350 " };
+        return {
+          color: "white",
+          backgroundColor: "#ef5350 ",
+          paddingLeft: "10px",
+        };
       case "Order Confirmed":
-        return { color: "white", backgroundColor: "#26a69a " };
+        return {
+          color: "white",
+          backgroundColor: "#26a69a ",
+          paddingLeft: "10px",
+        };
+      case "Shipped":
+        return {
+          color: "white",
+          backgroundColor: "#5dade2 ",
+          paddingLeft: "10px",
+        };
       default:
         return { color: "black" };
     }
