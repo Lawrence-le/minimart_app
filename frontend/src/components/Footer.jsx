@@ -19,7 +19,6 @@ const Footer = () => {
     <footer
       style={{
         padding: "10px",
-        backgroundColor: "#f1f1f1",
         backgroundColor: "#fafafa ",
         marginTop: "5rem",
       }}
