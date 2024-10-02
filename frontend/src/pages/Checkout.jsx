@@ -249,13 +249,7 @@ const CheckoutPage = () => {
                   <strong>${totalOrder}</strong>
                 </p>
               </div>
-              <hr />
-              <div style={{ color: "red" }}>
-                <strong>
-                  Note: This is a test app do not input your actual credit card
-                  details in the payment page
-                </strong>
-              </div>
+
               <Button
                 variant="info"
                 className="button_custom mt-3 mb-5"
@@ -263,6 +257,28 @@ const CheckoutPage = () => {
               >
                 Proceed to Payment
               </Button>
+
+              <div style={{ color: "red" }}>
+                <strong>
+                  Note: This is a test app do not input your actual credit card
+                  details in the payment page.
+                </strong>
+              </div>
+              <div>
+                <strong>
+                  Use this stripe test card for credit card details on the next
+                  page
+                </strong>
+              </div>
+              <div>Card Number: 4242 4242 4242 4242</div>
+              <div>CVC: Any 3 digits</div>
+              <div>Date: Any future date</div>
+              <a
+                href="https://docs.stripe.com/testing"
+                style={{ color: "blue" }}
+              >
+                https://docs.stripe.com/testing
+              </a>
             </Card.Body>
           </Col>
         </Row>

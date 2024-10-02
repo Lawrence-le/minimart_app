@@ -1,6 +1,6 @@
 # Uncle Thomas Minimart App
 
-![Logo](readme_assets\uncle_thomas_minimart_logo.png)
+![HomePage](readme_assets\home_page.png)
 
 #### Objectives (MVP)
 
@@ -108,6 +108,59 @@
 
 - **Postman:** For backend API route testing
 
+<hr>
+
+### Consumer Pages
+
+##### Sign In / Register
+
+<p float="left">
+  <img src="readme_assets/signin.png" width="48%" />
+  <img src="readme_assets/signup.png" width="48%" /> 
+</p>
+
+##### Store Page
+
+![alt text](readme_assets/store_page.png)
+
+##### Product Page
+
+![alt text](readme_assets/product_page.png)
+
+##### Orders Page
+
+![alt text](readme_assets/orders_page.png)
+
+##### Cart Page
+
+![alt text](readme_assets/cart_page.png)
+
+##### Checkout Page
+
+![alt text](readme_assets/checkout_page.png)
+
+##### Payment Page (Using Stripe Session)
+
+![alt text](readme_assets/stripe_payment.png)
+
+<hr>
+
+### Admin Pages
+
+##### Inventory
+
+![alt text](readme_assets/inventory.png)
+
+##### Category Manager
+
+![alt text](readme_assets/category_manager.png)
+
+##### Order Manager
+
+![alt text](readme_assets/order_manager.png)
+
+<hr>
+
 #### References
 
 Flask
@@ -145,12 +198,12 @@ How to build API Routes in Flask
 
 - https://www.turing.com/kb/build-flask-routes-in-python
 
-#### React
+React Axios Library
 
-Axios Library
-https://axios-http.com/docs/example
+- https://axios-http.com/docs/example
 
-#### PostgreSQL
+PostgreSQL
 
-https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert/
-https://www.datacamp.com/cheat-sheet/postgre-sql-basics-cheat-sheet
+- https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-insert/
+
+- https://www.datacamp.com/cheat-sheet/postgre-sql-basics-cheat-sheet
