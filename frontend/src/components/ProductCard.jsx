@@ -12,15 +12,15 @@ const ProductCard = ({ product }) => {
 
   const handleAddToCart = async (product, quantity) => {
     if (!user) {
-      console.log("User is null. Showing login modal.");
+      // console.log("User is null. Showing login modal.");
       setShowModal(true); // Only set the state to show the modal
       return;
     }
 
     try {
       const response = await addToCart(product.id, quantity);
-      console.log(`${product.name} added to cart successfully!`);
-      console.log("Response:", response);
+      // console.log(`${product.name} added to cart successfully!`);
+      // console.log("Response:", response);
     } catch (error) {
       console.error(`Failed to add ${product.name} to cart.`, error);
     }

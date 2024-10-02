@@ -36,7 +36,7 @@ const Profile = () => {
     try {
       const addressList = await getAddresses();
       setAddresses(addressList);
-      console.log("Fetched Addresses: ", addressList);
+      // console.log("Fetched Addresses: ", addressList);
     } catch (error) {
       console.error("Error fetching addresses:", error);
     } finally {

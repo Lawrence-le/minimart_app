@@ -21,7 +21,7 @@ const AdminNavbar = () => {
       await logout();
       removeToken();
       navigate("/");
-      console.log("User Logged Out");
+      // console.log("User Logged Out");
     } catch (error) {
       console.error("Logout failed:", error);
     }

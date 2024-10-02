@@ -18,7 +18,7 @@ const Success = () => {
     if (orderId) {
       confirmOrderStatus(orderId)
         .then((response) => {
-          console.log("Order status confirmed:", response);
+          // console.log("Order status confirmed:", response);
           setTimeout(() => {
             navigate("/orders");
           }, 2000);

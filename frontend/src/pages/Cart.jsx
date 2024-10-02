@@ -105,7 +105,7 @@ const Cart = () => {
     );
   }
 
-  console.log("total order: ", totalOrder);
+  // console.log("total order: ", totalOrder);
 
   return (
     <Container className="cart-container mt-4">

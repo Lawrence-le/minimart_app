@@ -15,13 +15,13 @@ const OrderManager = () => {
   const fetchOrders = async () => {
     try {
       const ordersData = await getAllOrders();
-      console.log("ordersData", ordersData);
+      // console.log("ordersData", ordersData);
 
       const sortedOrders = ordersData.sort(
         (a, b) => new Date(b.created_at) - new Date(a.created_at)
       );
       setOrders(sortedOrders);
-      console.log("Sorted Orders: ", sortedOrders);
+      // console.log("Sorted Orders: ", sortedOrders);
 
       for (let order of sortedOrders) {
         await fetchOrderItems(order.order_id);
@@ -35,7 +35,7 @@ const OrderManager = () => {
     try {
       const itemsData = await getOrderItemsByOrderId(orderId);
       setOrderItemsMap((prev) => ({ ...prev, [orderId]: itemsData }));
-      console.log("Fetched items for order", orderId, itemsData);
+      // console.log("Fetched items for order", orderId, itemsData);
     } catch (error) {
       console.error("Error fetching order items:", error.message);
     }

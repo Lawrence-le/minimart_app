@@ -53,7 +53,7 @@ const CheckoutPage = () => {
     const fetchAddresses = async () => {
       try {
         const addressList = await getAddresses();
-        console.log("addressList:", addressList);
+        // console.log("addressList:", addressList);
         setAddresses(addressList);
       } catch (error) {
         console.error("Error fetching addresses:", error);
@@ -91,9 +91,9 @@ const CheckoutPage = () => {
     if (selectedAddressId) {
       try {
         // Step 1: Fetch the Shipping Address
-        console.log("selectedAddressId:", selectedAddressId);
+        // console.log("selectedAddressId:", selectedAddressId);
         const shippingAddressData = await getShippingAddress(selectedAddressId);
-        console.log("shippingAddressData:", shippingAddressData);
+        // console.log("shippingAddressData:", shippingAddressData);
         const shippingAddress = shippingAddressData.address_single_line;
 
         const orderData = {
@@ -105,24 +105,24 @@ const CheckoutPage = () => {
         await createOrder(orderData);
 
         const orderResponse = await getUserOrders();
-        console.log("GET ORDER:", orderResponse);
+        // console.log("GET ORDER:", orderResponse);
 
         const sortedOrders = orderResponse.sort((a, b) => b.id - a.id); // Sort in descending order
         const latestOrder = sortedOrders[0];
         const orderId = latestOrder.id;
-        console.log("GET ORDER ID:", orderId);
+        // console.log("GET ORDER ID:", orderId);
 
         const orderShippingCost = Math.round(
           orderResponse[0].shipping_cost * 100
         );
-        console.log("GET ORDER SHIPPING COST:", orderShippingCost);
+        // console.log("GET ORDER SHIPPING COST:", orderShippingCost);
 
         const totalAmount = Math.round(orderResponse[0].total * 100);
-        console.log("Total Amount:", totalAmount);
+        // console.log("Total Amount:", totalAmount);
 
         // Step 3: Fetch Order Details
         const orderDetails = await getOrderDetails(orderId);
-        console.log("Order Details: ", orderDetails);
+        // console.log("Order Details: ", orderDetails);
 
         // Prepare the order items for the session
         const orderItems = orderDetails.order_items.map((item) => ({
@@ -131,7 +131,7 @@ const CheckoutPage = () => {
           quantity: item.quantity,
         }));
 
-        console.log("Order Items:", orderItems);
+        // console.log("Order Items:", orderItems);
 
         // Step 4: Create Stripe Checkout Session
         const sessionResponse = await createCheckoutSession({

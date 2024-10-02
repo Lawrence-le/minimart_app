@@ -24,8 +24,8 @@ const App = () => {
   // Navbar = AdminNavbar;
 
   const { user } = useAuth();
-  console.log("Current user:", user);
-  console.log("User Token: ", getToken());
+  // console.log("Current user:", user);
+  // console.log("User Token: ", getToken());
   // console.log("User Role: ", user.role);
 
   let Navbar;
@@ -34,12 +34,12 @@ const App = () => {
     switch (user.role) {
       case "admin":
         Navbar = AdminNavbar;
-        console.log("User Role: ", user.role);
+        // console.log("User Role: ", user.role);
         break;
 
       case "user":
         Navbar = UserNavbar;
-        console.log("User Role: ", user.role);
+        // console.log("User Role: ", user.role);
         break;
 
       default:

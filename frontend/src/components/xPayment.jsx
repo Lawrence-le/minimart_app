@@ -49,7 +49,7 @@ const CheckoutForm = () => {
     if (totalOrder > 0) {
       try {
         const data = await paymentService.createCheckoutSession(totalOrder);
-        console.log("Checkout session data:", data); // Check the response data
+        // console.log("Checkout session data:", data); // Check the response data
         setClientSecret(data.client_secret); // Assuming client_secret is returned
       } catch (error) {
         console.error("Error creating checkout session:", error);
@@ -62,7 +62,7 @@ const CheckoutForm = () => {
   }, [totalOrder, fetchClientSecret]);
 
   useEffect(() => {
-    console.log("Client Secret: ", clientSecret);
+    // console.log("Client Secret: ", clientSecret);
   }, [clientSecret]);
 
   const handleSubmit = async (event) => {
@@ -83,7 +83,7 @@ const CheckoutForm = () => {
     if (error) {
       setError(error.message);
     } else {
-      console.log("Payment successful:", paymentIntent);
+      // console.log("Payment successful:", paymentIntent);
       // Handle success (e.g., redirect, show a success message, etc.)
     }
   };

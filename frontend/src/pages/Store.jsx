@@ -16,7 +16,7 @@ const Store = () => {
   const fetchProducts = async () => {
     try {
       const productsData = await getProducts();
-      console.log("productsData: ", productsData);
+      // console.log("productsData: ", productsData);
       setProducts(productsData.products || []);
     } catch (error) {
       console.error("Failed to fetch products", error);
@@ -28,7 +28,7 @@ const Store = () => {
   const fetchCategories = async () => {
     try {
       const fetchedCategories = await getCategories();
-      console.log("fetchedCategories:", fetchedCategories);
+      // console.log("fetchedCategories:", fetchedCategories);
       setCategories(fetchedCategories);
     } catch (error) {
       console.error("Failed to fetch categories", error);
@@ -40,7 +40,7 @@ const Store = () => {
     if (categoryId) {
       try {
         const filteredProducts = await filterProductsByCategory(categoryId);
-        console.log("filteredProducts: ", filteredProducts);
+        // console.log("filteredProducts: ", filteredProducts);
         setProducts(filteredProducts.products);
       } catch (error) {
         console.error("Error fetching products by category:", error);

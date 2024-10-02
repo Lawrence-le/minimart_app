@@ -38,7 +38,7 @@ const UserNavbar = () => {
       await logout();
       // removeToken(); // Remove token from local storage
       navigate("/");
-      console.log("User Logged Out");
+      // console.log("User Logged Out");
     } catch (error) {
       console.error("Logout failed:", error);
     }

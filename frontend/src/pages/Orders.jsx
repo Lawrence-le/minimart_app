@@ -13,19 +13,19 @@ const OrdersPage = () => {
     const fetchOrders = async () => {
       try {
         const userOrders = await getUserOrders();
-        console.log("userOrders: ", userOrders);
+        // console.log("userOrders: ", userOrders);
         setOrders(userOrders);
 
         // Fetch order details sequentially
         for (const order of userOrders) {
           const details = await getOrderDetails(order.id);
-          console.log("Order ID: ", order);
+          // console.log("Order ID: ", order);
           setOrderDetails((prevDetails) => ({
             ...prevDetails,
             [order.id]: details,
           }));
         }
-        console.log("orderDetails", orderDetails);
+        // console.log("orderDetails", orderDetails);
       } catch (error) {
         console.error("Error fetching orders or details:", error);
       }

@@ -13,7 +13,7 @@ const Product = () => {
   const fetchProductDetails = async () => {
     try {
       const productData = await getProductById(productId);
-      console.log("productData: ", productData);
+      // console.log("productData: ", productData);
       setProduct(productData.product);
     } catch (error) {
       console.error("Error fetching product details:", error);
