@@ -1,6 +1,6 @@
 # Uncle Thomas Minimart App
 
-![HomePage](readme_assets\home_page.png)
+![HomePage](readme_assets/home_page.png)
 
 #### Objectives (MVP)
 
