@@ -249,6 +249,13 @@ const CheckoutPage = () => {
                   <strong>${totalOrder}</strong>
                 </p>
               </div>
+              <hr />
+              <div style={{ color: "red" }}>
+                <strong>
+                  Note: This is a test app do not input your actual credit card
+                  details in the payment page
+                </strong>
+              </div>
               <Button
                 variant="info"
                 className="button_custom mt-3 mb-5"

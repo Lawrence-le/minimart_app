@@ -26,10 +26,10 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = (token) => {
-    console.log("Token received for login:", token); // Log the received token
+    // console.log("Token received for login:", token); // Log the received token
     setToken(token);
     const decodedUser = decodeToken(token);
-    console.log("User decoded:", decodedUser);
+    // console.log("User decoded:", decodedUser);
     setUser(decodedUser);
   };
 

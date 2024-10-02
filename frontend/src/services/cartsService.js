@@ -27,7 +27,7 @@ export const createEmptyCart = async (userId) => {
 // Add a product to the cart
 export const addToCart = async (productId, quantity) => {
   const payload = { product_id: productId, quantity };
-  console.log("Payload:", payload); // Log the payload
+  // console.log("Payload:", payload); // Log the payload
 
   try {
     const response = await axios.post(

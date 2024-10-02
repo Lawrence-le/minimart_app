@@ -65,7 +65,7 @@ export const getAddresses = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("Addresses Data Response:", response.data);
+    // console.log("Addresses Data Response:", response.data);
 
     return response.data.addresses;
   } catch (error) {
