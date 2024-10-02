@@ -1,6 +1,6 @@
 # Uncle Thomas Minimart App
 
-Welcome to the Minimart App, a convenient, easy-to-use digital solution designed for small businesses like Uncle Thomas' minimart. Uncle Thomas, a key persona in our project, is a friendly neighborhood shop owner looking to modernize his operations without getting overwhelmed by complex technology. This app is tailored to meet his specific needs, streamlining day-to-day operations and helping him serve his customers more efficiently.
+Welcome to the Uncle Thomas Minimart App, a convenient, easy-to-use digital solution designed for small businesses like Uncle Thomas' minimart. Uncle Thomas, a key persona in our project, is a friendly neighborhood shop owner looking to modernize his operations without getting overwhelmed by complex technology. This app is tailored to meet his specific needs, streamlining day-to-day operations and helping him serve his customers more efficiently.
 
 ![HomePage](readme_assets/home_page.png)
 
