@@ -69,13 +69,13 @@
 
 - **Figma**: [View Wireframes](https://www.figma.com/design/RkYVGK7fwjMo69p2ts1xDt/Uncle-Thomas-Minimart?m=auto&t=MHsQcLfRoKFhCT4z-1)
 
-![alt text](readme_assets\image.png)
+![alt text](readme_assets/image.png)
 
 #### Data Model - ERD
 
 - **dbDiagram.io**: [View ERD](https://dbdiagram.io/d/Uncle-Thomas-Minimart-15-Sep-2024-66e5bfe26dde7f41491dd8be)
   <br/>
-  ![alt text](readme_assets\image-1.png)
+  ![alt text](readme_assets/image-1.png)
 
 #### Frontend
 
