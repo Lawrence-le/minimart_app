@@ -16,27 +16,31 @@ Welcome to the Uncle Thomas Minimart App, a convenient, easy-to-use digital solu
 
 ### Product Roadmapping
 
-#### Week 1: Project Planning / UI/UX Design
+#### Sprint 1: Project Kickoff and Planning
 - **Idea Generation:** Define the MVP and personas based on the concept of developing an e-commerce app.
 - **Personas:** Identify the required personas and their pain points.
 - **User Research:** Analyze and document the pain points of the defined personas.
 - **Competitive Research:** Investigate similar e-commerce apps to identify best practices and unique features for implementation.
 - **Define MVP:** Establish a clear set of user stories outlining the minimum viable product (MVP) that addresses key user needs.
 - **Wireframing:** Create wireframes for core user interfaces using Figma, focusing on user flow and layout.
+- **Tech Stack:** Define the tech stack used for this project.
 
-#### Week 2: Development Sprint 1
+#### Sprint 2: Development Feature 1.0
 - **User Testing:** Conduct initial usability testing with Uncle Thomas (the persona) to gather feedback on the wireframes and adjust designs accordingly.
 - **Final Design:** Develop prototypes using React based on the wireframes, ensuring alignment with user stories.
 - **Frontend Development:** Build the user interface using React and integrate components from React-Bootstrap.
 - **Backend Setup:** Set up the Flask framework and establish the initial API routes for product retrieval and user authentication. Configure Amazon S3 storage for product images.
 - **Database Configuration:** Design the PostgreSQL database schema based on the defined data model.
 
-#### Week 3: Development Sprint 2
+#### Sprint 3: Development Feature 2.0
 - **Frontend Development:** Implement core features such as shopping cart functionality, order management, and address handling. Set up and integrate Stripe API for seamless payment processing.
 - **Backend Development:** Establish API endpoints for managing the shopping cart, orders, and addresses.
 - **Conduct Testing:** Ensure each feature operates seamlessly according to user stories and delivers the requirements of the MVP.
+
+#### Sprint 4: Release 1.0
 - **Deployment of MVP:** Verify that the deployed product functions correctly on the live domain and that all features operate as expected compared to the local development version.
 
+#### Project Timeline: 3 Weeks
 
 ### Personas (Fictional Person)
 
