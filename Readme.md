@@ -4,17 +4,41 @@ Welcome to the Uncle Thomas Minimart App, a convenient, easy-to-use digital solu
 
 ![HomePage](readme_assets/home_page.png)
 
-#### Objectives (MVP)
+### Objectives (MVP)
 
 - Satisfy user stories based on client needs and developer recommendations
 - Address and resolve client pain points
 - Enhance security measures
 
-#### Add-on (Stretch Goals)
+### Add-on (Stretch Goals)
 
 - Data analysis page for client to understand his online business performance
 
-#### Personas (Fictional Person)
+### Product Roadmapping
+
+#### Week 1: Project Planning / UI/UX Design
+- **Idea Generation:** Define the MVP and personas based on the concept of developing an e-commerce app.
+- **Personas:** Identify the required personas and their pain points.
+- **User Research:** Analyze and document the pain points of the defined personas.
+- **Competitive Research:** Investigate similar e-commerce apps to identify best practices and unique features for implementation.
+- **Define MVP:** Establish a clear set of user stories outlining the minimum viable product (MVP) that addresses key user needs.
+- **Wireframing:** Create wireframes for core user interfaces using Figma, focusing on user flow and layout.
+
+#### Week 2: Development Sprint 1
+- **User Testing:** Conduct initial usability testing with Uncle Thomas (the persona) to gather feedback on the wireframes and adjust designs accordingly.
+- **Final Design:** Develop prototypes using React based on the wireframes, ensuring alignment with user stories.
+- **Frontend Development:** Build the user interface using React and integrate components from React-Bootstrap.
+- **Backend Setup:** Set up the Flask framework and establish the initial API routes for product retrieval and user authentication. Configure Amazon S3 storage for product images.
+- **Database Configuration:** Design the PostgreSQL database schema based on the defined data model.
+
+#### Week 3: Development Sprint 2
+- **Frontend Development:** Implement core features such as shopping cart functionality, order management, and address handling. Set up and integrate Stripe API for seamless payment processing.
+- **Backend Development:** Establish API endpoints for managing the shopping cart, orders, and addresses.
+- **Conduct Testing:** Ensure each feature operates seamlessly according to user stories and delivers the requirements of the MVP.
+- **Deployment of MVP:** Verify that the deployed product functions correctly on the live domain and that all features operate as expected compared to the local development version.
+
+
+### Personas (Fictional Person)
 
 - **Client:** Uncle Thomas
 
@@ -22,7 +46,7 @@ Welcome to the Uncle Thomas Minimart App, a convenient, easy-to-use digital solu
 
 - **Age:** 60+
 
-#### Pain Points
+### Pain Points
 
 1. **Loyal Customer Loss:**
    Uncle Thomas is concerned about losing loyal customers who have moved away from the area where his physical store is located. He believes these customers are also unhappy about not being able to support his business, which they have enjoyed for its friendly service.
@@ -35,7 +59,7 @@ Welcome to the Uncle Thomas Minimart App, a convenient, easy-to-use digital solu
      <br/>
    - **E-Commerce Interest:** They suggest that if Uncle Thomas invests in e-commerce, they would be more interested in taking over and managing that aspect of the business.
 
-#### User Stories
+### User Stories
 
 1. As a consumer, I want to browse products by category
    I want to see a list of product categories and browse items within a selected category.
@@ -67,25 +91,27 @@ Welcome to the Uncle Thomas Minimart App, a convenient, easy-to-use digital solu
 10. (Stretch Goal) As an admin, I want to view business analytics
     I want to see sales data and reports to analyze the performance of the minimart.
 
-#### UI/UX Wireframing
+
+
+### UI/UX Wireframing
 
 - **Figma**: [View Wireframes](https://www.figma.com/design/RkYVGK7fwjMo69p2ts1xDt/Uncle-Thomas-Minimart?m=auto&t=MHsQcLfRoKFhCT4z-1)
 
 ![alt text](readme_assets/image.png)
 
-#### Data Model - ERD
+### Data Model - ERD
 
 - **dbDiagram.io**: [View ERD](https://dbdiagram.io/d/Uncle-Thomas-Minimart-15-Sep-2024-66e5bfe26dde7f41491dd8be)
   <br/>
   ![alt text](readme_assets/image-1.png)
 
-#### Frontend
+### Frontend
 
 - **React JS (Vite)**: Modern JavaScript framework for building user interfaces.
 
 - **React-Bootstrap**: For pre-designed UI components.
 
-#### Backend
+### Backend
 
 - **Python**: Programming language for backend development.
 - **Flask**: Web framework for creating the backend API.
@@ -96,17 +122,17 @@ Welcome to the Uncle Thomas Minimart App, a convenient, easy-to-use digital solu
 - **Amazon S3**: File Storage (for product images)
 - **Stripe**: Payment API
 
-#### Backend Database
+### Backend Database
 
 - **PostgreSQL**: For backend database needs
 
-#### Security
+### Security
 
 - **User Route Protection:** Prevents unauthorized access to protected routes.
 
 - **Token Revocation:** Uses JTI blacklist to revoke JWTs.
 
-#### Backend API Tester
+### Backend API Tester
 
 - **Postman:** For backend API route testing
 
