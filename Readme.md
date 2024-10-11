@@ -14,7 +14,7 @@ Welcome to the Uncle Thomas Minimart App, a convenient, easy-to-use digital solu
 
 - Data analysis page for client to understand his online business performance
 
-### Product Roadmapping
+### Agile Project Management
 
 #### Sprint 1: Project Kickoff and Planning
 - **Idea Generation:** Define the MVP and personas based on the concept of developing an e-commerce app.
